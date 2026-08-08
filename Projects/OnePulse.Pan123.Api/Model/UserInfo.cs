@@ -1,0 +1,45 @@
+﻿namespace OnePulse.Pan123.Api.Model
+{
+    public enum LoginMethod
+    {
+        PasswordLogin,
+        QRCodeLogin,
+    }
+
+    public class DeviceInfo
+    {
+        public string OS { get; set; } = "";
+        public string Type { get; set; } = "";
+
+        public DeviceInfo() { }
+        public DeviceInfo(string os, string type)
+        {
+            OS = os;
+            Type = type;
+        }
+    }
+
+    public class UserInfo
+    {
+        // 登录方式
+        public LoginMethod LoginMethod { get; set; } = LoginMethod.PasswordLogin;
+
+        // 基本信息
+        public string? UserName { get; set; } = "";
+        public string? Password { get; set; } = "";
+
+        // Token
+        public string? Authorization { get; set; }
+        public string? Uuid { get; set; }
+
+        // 登录信息
+        public DeviceInfo? DeviceInfo { get; set; }
+
+        public UserInfo() { }
+        public UserInfo(string username, string password)
+        {
+            UserName = username;
+            Password = password;
+        }
+    }
+}
