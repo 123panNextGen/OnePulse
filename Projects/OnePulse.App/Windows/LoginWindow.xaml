@@ -34,7 +34,7 @@
                         Margin="6"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
-                        Fill="{ThemeResource SystemControlBackgroundBaseMediumBrush}" />
+                        Stroke="Gray" />
                     <TextBlock
                         Grid.Column="1"
                         Margin="12,6,0,0"
@@ -68,8 +68,6 @@
                 <FontIconSource Glyph="&#xE77B;" />
             </TitleBar.IconSource>
         </TitleBar>
-
-        <TextBlock Grid.Row="2" Text="{x:Bind AppDataPath}" />
 
         <ListView
             Grid.Row="2"

@@ -38,6 +38,9 @@
 
         public OpenUserInfo? OpenInfo { get; set; }
 
+        // 对象无法直接加密，序列化为 JSON 后存密文
+        public string? OpenInfoCipher { get; set; }
+
         public UserInfo() { }
 
         public UserInfo(string username, string password)
