@@ -1,6 +1,6 @@
-﻿using OnePulse.Pan123.Api.Model;
+﻿using OnePulse.Pan123.Api.Models;
 
-namespace OnePulse.Pan123.Api.Service
+namespace OnePulse.Pan123.Api.Services
 {
     public partial class NetSession
     {

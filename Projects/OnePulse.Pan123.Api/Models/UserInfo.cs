@@ -1,4 +1,4 @@
-﻿namespace OnePulse.Pan123.Api.Model
+﻿namespace OnePulse.Pan123.Api.Models
 {
     public enum LoginMethod
     {
@@ -12,6 +12,7 @@
         public string Type { get; set; } = "";
 
         public DeviceInfo() { }
+
         public DeviceInfo(string os, string type)
         {
             OS = os;
@@ -36,6 +37,7 @@
         public DeviceInfo? DeviceInfo { get; set; }
 
         public UserInfo() { }
+
         public UserInfo(string username, string password)
         {
             UserName = username;
