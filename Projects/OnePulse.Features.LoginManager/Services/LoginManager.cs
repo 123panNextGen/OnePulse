@@ -14,8 +14,10 @@ namespace OnePulse.Features.LoginManager.Services
 
         // 子服务
         internal UtilityService Utils { get; }
+        public AddService Add { get; }
 
-        public string AppDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\OnePulse";
+        public string AppDataPath =
+            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\OnePulse";
         internal LiteDatabase? Database { get; set; }
         ILiteCollection<UserInfo>? UserInfoCollections;
 
@@ -26,6 +28,7 @@ namespace OnePulse.Features.LoginManager.Services
 
             // 注册服务
             Utils = new(this);
+            Add = new(this);
         }
     }
 }
