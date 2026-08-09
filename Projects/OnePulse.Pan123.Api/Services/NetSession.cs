@@ -4,7 +4,7 @@ namespace OnePulse.Pan123.Api.Services
 {
     public partial class NetSession
     {
-        private static readonly Lazy<NetSession> lazy = new Lazy<NetSession>(() => new());
+        private static readonly Lazy<NetSession> lazy = new(() => new());
 
         public static NetSession Instance
         {

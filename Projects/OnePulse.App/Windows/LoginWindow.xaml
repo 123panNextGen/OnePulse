@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:OnePulse.App.Windows"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:userInfo="using:OnePulse.Pan123.Api.Models.UserInfo"
     Title="LoginWindow"
     mc:Ignorable="d">
 
@@ -15,7 +16,7 @@
 
     <Grid>
         <Grid.Resources>
-            <DataTemplate x:Key="ContactListViewTemplate" x:DataType="local:Contact">
+            <DataTemplate x:Key="ContactListViewTemplate" x:DataType="userInfo:UserInfo">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
@@ -39,14 +40,14 @@
                         Margin="12,6,0,0"
                         x:Phase="1"
                         Style="{ThemeResource BaseTextBlockStyle}"
-                        Text="{x:Bind Name}" />
+                        Text="{x:Bind OpenInfo.Nickname}" />
                     <TextBlock
                         Grid.Row="1"
                         Grid.Column="1"
                         Margin="12,0,0,6"
                         x:Phase="2"
                         Style="{ThemeResource BodyTextBlockStyle}"
-                        Text="{x:Bind Company}" />
+                        Text="{x:Bind OpenInfo.Passport}" />
                 </Grid>
             </DataTemplate>
         </Grid.Resources>

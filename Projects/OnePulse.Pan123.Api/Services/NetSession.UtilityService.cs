@@ -29,7 +29,7 @@ namespace OnePulse.Pan123.Api.Services
                 return new ApiReturn<string>(ApiResult.Success);
             }
 
-            internal Dictionary<string, string> BuildHeadersByUserInfo(UserInfo userInfo)
+            internal static Dictionary<string, string> BuildHeadersByUserInfo(UserInfo userInfo)
             {
                 ArgumentNullException.ThrowIfNull(userInfo.DeviceInfo);
                 ArgumentNullException.ThrowIfNull(userInfo.Uuid);
