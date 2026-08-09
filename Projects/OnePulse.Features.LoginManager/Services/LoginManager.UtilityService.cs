@@ -1,6 +1,6 @@
 ﻿using LiteDB;
-using OnePulse.Pan123.Api.Models.UserInfo;
 using OnePulse.Features.LoginManager.Services.Interface;
+using OnePulse.Pan123.Api.Models.UserInfo;
 
 namespace OnePulse.Features.LoginManager.Services
 {
@@ -19,7 +19,6 @@ namespace OnePulse.Features.LoginManager.Services
             // 故初始化推迟到 LoginManager 全部子服务注册完成后执行
             public void Initialize()
             {
-                // 修复：原实现把 AppDataPath 覆盖为相对路径，导致数据库位置漂移
                 var databasePath = _session.AppDataPath + @"\Database\UserInfo.db";
                 var connectionString = $"Filename={databasePath};Password={_session.KeyStore.Key}";
 

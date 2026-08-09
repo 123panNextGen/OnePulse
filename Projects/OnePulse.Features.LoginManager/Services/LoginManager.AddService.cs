@@ -1,7 +1,7 @@
-﻿using OnePulse.Pan123.Api.Models;
-using OnePulse.Pan123.Api.Models.UserInfo;
-using OnePulse.Features.LoginManager.Services.Interface;
+﻿using OnePulse.Features.LoginManager.Services.Interface;
 using OnePulse.Features.LoginManager.Services.SecureCrypto;
+using OnePulse.Pan123.Api.Models;
+using OnePulse.Pan123.Api.Models.UserInfo;
 
 namespace OnePulse.Features.LoginManager.Services
 {

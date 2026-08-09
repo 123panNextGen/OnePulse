@@ -1,4 +1,4 @@
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
 
 namespace OnePulse.Features.LoginManager.Services.SecureCrypto
@@ -21,7 +21,11 @@ namespace OnePulse.Features.LoginManager.Services.SecureCrypto
         public static string Unprotect(string cipherText)
         {
             byte[] encrypted = Convert.FromBase64String(cipherText);
-            byte[] bytes = ProtectedData.Unprotect(encrypted, null, DataProtectionScope.CurrentUser);
+            byte[] bytes = ProtectedData.Unprotect(
+                encrypted,
+                null,
+                DataProtectionScope.CurrentUser
+            );
             return Encoding.UTF8.GetString(bytes);
         }
 

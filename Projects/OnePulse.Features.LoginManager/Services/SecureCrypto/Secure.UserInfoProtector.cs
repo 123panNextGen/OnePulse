@@ -1,5 +1,5 @@
+﻿using OnePulse.Pan123.Api.Models.UserInfo;
 using System.Text.Json;
-using OnePulse.Pan123.Api.Models.UserInfo;
 
 namespace OnePulse.Features.LoginManager.Services.SecureCrypto
 {
@@ -50,7 +50,9 @@ namespace OnePulse.Features.LoginManager.Services.SecureCrypto
 
         static string? SecureInfo(OpenUserInfo? info)
         {
-            return info == null ? null : SecureCryptoService.Protect(JsonSerializer.Serialize(info));
+            return info == null
+                ? null
+                : SecureCryptoService.Protect(JsonSerializer.Serialize(info));
         }
 
         static OpenUserInfo? UnsecureInfo(string? cipher)

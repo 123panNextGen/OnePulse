@@ -1,4 +1,4 @@
-using OnePulse.Features.LoginManager.Services.Interface;
+﻿using OnePulse.Features.LoginManager.Services.Interface;
 
 namespace OnePulse.Features.LoginManager.Services.SecureCrypto
 {

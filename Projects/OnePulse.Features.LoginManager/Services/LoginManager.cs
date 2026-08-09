@@ -1,7 +1,7 @@
 ﻿using LiteDB;
-using OnePulse.Pan123.Api.Models.UserInfo;
 using OnePulse.Features.LoginManager.Services.Interface;
 using OnePulse.Features.LoginManager.Services.SecureCrypto;
+using OnePulse.Pan123.Api.Models.UserInfo;
 
 namespace OnePulse.Features.LoginManager.Services
 {
@@ -17,6 +17,7 @@ namespace OnePulse.Features.LoginManager.Services
         // 子服务
         internal IUtilityService Utils { get; }
         public IAddService Add { get; }
+        public IGetService Get { get; }
         public ISecureKeyStore KeyStore { get; }
 
         public string AppDataPath =
@@ -33,6 +34,7 @@ namespace OnePulse.Features.LoginManager.Services
             KeyStore = new SecureKeyStore(AppDataPath);
             Utils = new UtilityService(this);
             Add = new AddService(this);
+            Get = new GetService(this);
 
             // 数据库初始化依赖 KeyStore.Key，必须在全部服务注册后执行
             Utils.Initialize();
