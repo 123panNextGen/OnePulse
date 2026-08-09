@@ -1,4 +1,6 @@
-﻿namespace OnePulse.Pan123.Api.Services
+﻿using OnePulse.Pan123.Api.Models.UserInfo;
+
+namespace OnePulse.Pan123.Api.Services
 {
     public partial class NetSession
     {
@@ -21,7 +23,7 @@
         internal static HttpClient freeClient = new();
 
         // 用户信息
-        Models.UserInfo? UserInfo { get; set; }
+        UserInfo? UserInfo { get; set; }
 
         private NetSession()
         {

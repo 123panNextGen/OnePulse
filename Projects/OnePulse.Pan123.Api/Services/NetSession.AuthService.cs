@@ -1,5 +1,7 @@
 ﻿using OnePulse.Pan123.Api.Models;
 using OnePulse.Pan123.Api.Models.Sessions;
+using OnePulse.Pan123.Api.Models.UserInfo;
+using OnePulse.Pan123.Api.Services.Interface;
 using System.Net.Http.Json;
 using System.Text.Json;
 
@@ -7,7 +9,7 @@ namespace OnePulse.Pan123.Api.Services
 {
     public partial class NetSession
     {
-        public class AuthService
+        public class AuthService : IAuthService
         {
             private readonly NetSession _session;
 

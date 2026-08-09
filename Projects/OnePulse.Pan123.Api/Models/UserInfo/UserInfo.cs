@@ -1,4 +1,4 @@
-﻿namespace OnePulse.Pan123.Api.Models
+﻿namespace OnePulse.Pan123.Api.Models.UserInfo
 {
     public enum LoginMethod
     {
@@ -35,6 +35,8 @@
 
         // 登录信息
         public DeviceInfo? DeviceInfo { get; set; }
+
+        public OpenUserInfo? OpenInfo { get; set; }
 
         public UserInfo() { }
 

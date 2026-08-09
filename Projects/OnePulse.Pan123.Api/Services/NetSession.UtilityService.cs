@@ -1,4 +1,5 @@
 ﻿using OnePulse.Pan123.Api.Models;
+using OnePulse.Pan123.Api.Models.UserInfo;
 
 namespace OnePulse.Pan123.Api.Services
 {
