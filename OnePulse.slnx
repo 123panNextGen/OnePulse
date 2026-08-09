@@ -1,3 +1,11 @@
 <Solution>
+  <Folder Name="/解决方案项/">
+    <File Path=".editorconfig" />
+    <File Path="README.md" />
+  </Folder>
+  <Project Path="Projects/OnePulse.App/OnePulse.App.csproj">
+    <Platform Project="x64" />
+    <Deploy />
+  </Project>
   <Project Path="Projects/OnePulse.Pan123.Api/OnePulse.Pan123.Api.csproj" Id="83d18c7c-3248-4dec-84af-3d06a68eff6d" />
 </Solution>

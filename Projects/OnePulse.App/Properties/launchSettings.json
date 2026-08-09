@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "OnePulse.App (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "OnePulse.App (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
