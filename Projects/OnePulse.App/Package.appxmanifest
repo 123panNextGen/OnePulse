@@ -35,7 +35,7 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="$targetentrypoint$">
       <uap:VisualElements
-        DisplayName="OnePulse.App"
+        DisplayName="OnePulse"
         Description="OnePulse.App"
         BackgroundColor="transparent"
         Square150x150Logo="Assets\Square150x150Logo.png"
