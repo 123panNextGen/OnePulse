@@ -7,5 +7,6 @@
     <Platform Project="x64" />
     <Deploy />
   </Project>
+  <Project Path="Projects/OnePulse.Features.LoginManager/OnePulse.Features.LoginManager.csproj" Id="1cf63b70-cdce-4246-9fd6-14567143624a" />
   <Project Path="Projects/OnePulse.Pan123.Api/OnePulse.Pan123.Api.csproj" Id="83d18c7c-3248-4dec-84af-3d06a68eff6d" />
 </Solution>

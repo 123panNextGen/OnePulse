@@ -50,6 +50,7 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\OnePulse.Features.LoginManager\OnePulse.Features.LoginManager.csproj" />
     <ProjectReference Include="..\OnePulse.Pan123.Api\OnePulse.Pan123.Api.csproj" />
   </ItemGroup>
   <ItemGroup>

@@ -69,8 +69,10 @@
             </TitleBar.IconSource>
         </TitleBar>
 
+        <TextBlock Grid.Row="2" Text="{x:Bind AppDataPath}" />
+
         <ListView
-            Grid.Row="1"
+            Grid.Row="2"
             ItemTemplate="{StaticResource ContactListViewTemplate}"
             SelectionMode="Single" />
 
