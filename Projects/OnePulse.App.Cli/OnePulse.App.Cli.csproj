@@ -1,10 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <Title>OnePulse CommandLine Tool</Title>
+    <VersionPrefix>0.1.0</VersionPrefix>
+    <Authors>AImixAE Nya Mocha</Authors>
+    <Company>123Pan Next Gen</Company>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,5 +17,4 @@
   <ItemGroup>
     <ProjectReference Include="..\OnePulse.Pan123.Api\OnePulse.Pan123.Api.csproj" />
   </ItemGroup>
-
 </Project>

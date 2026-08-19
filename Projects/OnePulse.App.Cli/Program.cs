@@ -1,56 +1,34 @@
 ﻿using System.CommandLine;
 using System.CommandLine.Invocation;
 using System.CommandLine.Parsing;
+using OnePulse.App.Cli.Options;
 
 namespace OnePulse.App.Cli;
 
-internal static class Program
+internal class Program
 {
-    static int Main(string[] args)
+    public static int Main(string[] args)
     {
-        Option<string> tokenOption = new(name: "--token")
+        Option<string> tokenOption = new(name: "--token", ["-T"])
         {
             Description = "The token for authentication.",
             Required = false,
         };
 
-        Option<string> loginUserNameOption = new(name: "--user-name")
-        {
-            Description = "The user name for login.",
-            Required = true,
-        };
-        Option<string> loginPasswordOption = new(name: "--password")
-        {
-            Description = "The password for login.",
-            Required = true,
-        };
-        Option<string> loginUuidOption = new(name: "--uuid")
-        {
-            Description = "The UUID for login.",
-            Required = false,
-            DefaultValueFactory = (_) => Guid.NewGuid().ToString(),
-        };
-        Option<string> loginDeviceOption = new(name: "--device")
-        {
-            Description = "The Device for login.",
-            Required = false,
-            DefaultValueFactory = (_) => "Xiaomi:17",
-        };
+        var authOptions = new Options.Auth.LoginOptions();
 
         RootCommand rootCommand = new("OnePulse CommandLine Tool");
         rootCommand.Options.Add(tokenOption);
-
 
         Command authCommand = new("auth", "Authentication commands");
         rootCommand.Subcommands.Add(authCommand);
 
         Command loginCommand = new("login", "Login command");
-        loginCommand.Options.Add(loginUserNameOption);
-        loginCommand.Options.Add(loginPasswordOption);
-        loginCommand.Options.Add(loginUuidOption);
-        loginCommand.Options.Add(loginDeviceOption);
+        loginCommand.Options.Add(authOptions.UserNameOption);
+        loginCommand.Options.Add(authOptions.PasswordOption);
+        loginCommand.Options.Add(authOptions.UuidOption);
+        loginCommand.Options.Add(authOptions.DeviceOption);
         authCommand.Subcommands.Add(loginCommand);
-
 
         ParseResult parseResult = rootCommand.Parse(args);
         return parseResult.Invoke();
