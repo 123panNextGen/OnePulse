@@ -1,4 +1,5 @@
-﻿using LiteDB;
+using LiteDB;
+using OnePulse.Features.LoginManager.Models;
 using OnePulse.Features.LoginManager.Services.Interface;
 using OnePulse.Pan123.Api.Models.UserInfo;
 
@@ -23,7 +24,7 @@ namespace OnePulse.Features.LoginManager.Services
                 var connectionString = $"Filename={databasePath};Password={_session.KeyStore.Key}";
 
                 _session.Database = new LiteDatabase(connectionString);
-                _session.UserInfoCollections = _session.Database.GetCollection<UserInfo>();
+                _session.UserCollections = _session.Database.GetCollection<StorageUser>();
             }
         }
     }

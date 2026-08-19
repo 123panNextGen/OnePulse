@@ -1,4 +1,4 @@
-﻿using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Controls;
 using OnePulse.Features.LoginManager.Services;
 using System;
 
@@ -17,7 +17,7 @@ namespace OnePulse.App.Gui.Pages.User
         {
             try
             {
-                UserInfoListView.ItemsSource = Manager.Get.GetUsers().ToArray();
+                UserInfoListView.ItemsSource = Manager.Get.GetUsers();
             }
             catch (ArgumentNullException)
             {

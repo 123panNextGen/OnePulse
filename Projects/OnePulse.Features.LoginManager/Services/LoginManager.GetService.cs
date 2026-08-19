@@ -1,5 +1,6 @@
-﻿using OnePulse.Features.LoginManager.Services.Interface;
-using OnePulse.Pan123.Api.Models.UserInfo;
+using OnePulse.Features.LoginManager.Models;
+using OnePulse.Features.LoginManager.Services.Interface;
+using OnePulse.Features.LoginManager.Services.SecureCrypto;
 
 namespace OnePulse.Features.LoginManager.Services
 {
@@ -14,15 +15,17 @@ namespace OnePulse.Features.LoginManager.Services
                 _session = session;
             }
 
-            public List<UserInfo> GetUsers()
+            public List<StorageUser> GetUsers()
             {
-                ArgumentNullException.ThrowIfNull(_session.UserInfoCollections);
+                ArgumentNullException.ThrowIfNull(_session.UserCollections);
 
-                var query = _session.UserInfoCollections.FindAll();
+                var users = _session.UserCollections.FindAll().ToList();
 
-                List<UserInfo> allUsers = [.. query];
+                // 入库时凭据为密文，读取后还原明文供展示与登录使用
+                foreach (var user in users)
+                    user.UserInfo = UserInfoProtector.Decrypt(user.UserInfo);
 
-                return allUsers;
+                return users;
             }
         }
     }

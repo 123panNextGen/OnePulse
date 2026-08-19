@@ -1,4 +1,5 @@
-﻿using LiteDB;
+using LiteDB;
+using OnePulse.Features.LoginManager.Models;
 using OnePulse.Features.LoginManager.Services.Interface;
 using OnePulse.Features.LoginManager.Services.SecureCrypto;
 using OnePulse.Pan123.Api.Models.UserInfo;
@@ -23,7 +24,7 @@ namespace OnePulse.Features.LoginManager.Services
         public string AppDataPath =
             Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\OnePulse";
         internal LiteDatabase? Database { get; set; }
-        internal ILiteCollection<UserInfo>? UserInfoCollections { get; set; }
+        internal ILiteCollection<StorageUser>? UserCollections { get; set; }
 
         public LoginManager()
         {
