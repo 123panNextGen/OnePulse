@@ -1,5 +1,5 @@
-﻿using Microsoft.UI.Xaml;
-using OnePulse.App.Windows;
+using Microsoft.UI.Xaml;
+using OnePulse.App.Gui.Windows;
 
 namespace OnePulse.App.Gui
 {
