@@ -32,13 +32,15 @@ Models/
 Services/
 ├── LoginManager.cs                     # Singleton, owns the database and registers sub-services
 ├── LoginManager.UtilityService.cs     # Opens the LiteDB database with the stored key
-├── LoginManager.AddService.cs         # Wraps + encrypts UserInfo into a StorageUser record
+├── LoginManager.AddService.cs         # Persists a StorageUser record (already encrypted)
 ├── LoginManager.GetService.cs         # Reads StorageUser records and decrypts UserInfo
 ├── LoginManager.DeleteService.cs      # Deletes a user by plaintext UserName
+├── UserInfoConverter.cs               # Maps UserInfo → StorageUser and encrypts sensitive fields
 ├── Interface/
 │   ├── IAddService.cs                 # Contract for adding a user account
 │   ├── IGetService.cs                 # Contract for reading users
 │   ├── IDeleteService.cs              # Contract for deleting a user
+│   ├── IUserInfoConverter.cs          # Contract for UserInfo → StorageUser conversion
 │   ├── IUtilityService.cs             # Contract for database initialization
 │   └── ISecureKeyStore.cs             # Contract for the database key
 └── SecureCrypto/
@@ -53,8 +55,9 @@ Services/
 │                                                              │
 │  KeyStore ── GenerateRandomKey/read key.dat ──► LiteDB password
 │  Utils ───── opens LiteDB with password ───────────────────┐ │
-│  Add ─────── UserInfoProtector.Encrypt() ──► StorageUser ─►│ │
-│  Get ─────── UserInfoProtector.Decrypt() ◄── StorageUser ◄─│ │
+│  Converter ─ UserInfo → StorageUser (encrypts sensitive fields)│ │
+│  Add ──────── persists the converted StorageUser ─────────────►│ │
+│  Get ─────── UserInfoProtector.Decrypt() ◄── StorageUser ◄─────│ │
 │  Delete ──── DeleteMany(UserName)                          │ │
 └────────────────────────────────────────────────────────────┘ │
                                                                ▼
@@ -72,6 +75,7 @@ initialization runs in two phases:
 ```
 LoginManager()                     # ctor
  ├── KeyStore = new SecureKeyStore(AppDataPath)   # registers service
+ ├── Converter = new UserInfoConverter()          # converts + encrypts UserInfo
  ├── Utils     = new UtilityService(this)
  ├── Add       = new AddService(this)
  └── Utils.Initialize()            # now KeyStore.Key exists
@@ -86,16 +90,18 @@ LoginManager()                     # ctor
 
 ### 2. Writing an account (encrypted at rest)
 
-`IAddService.AddUserInfo(info)`:
+`IAddService.AddUser(user)` (the `user` must come from
+`UserInfoConverter.ToStorageUser`):
 
-- Duplicate check on the plaintext `UserName` (`UserName` must stay plaintext —
-  ciphertext cannot be matched in a database query).
-- Wraps the info into a `StorageUser` record: outer display fields stay
-  plaintext, and the inner `UserInfo` is encrypted via `UserInfoProtector.Encrypt`
+- Conversion: `UserInfoConverter.ToStorageUser(info)` maps the plaintext
+  `UserInfo` into a `StorageUser` record — outer display fields stay plaintext,
+  and the inner `UserInfo` is encrypted via `UserInfoProtector.Encrypt`
   (`Password`, `Authorization`, `Uuid` are DPAPI-encrypted; `OpenInfo` is
   serialized to JSON and encrypted into the `OpenInfoCipher` column).
-- Only the encrypted record is inserted. The original object stays in memory in
-  plaintext, so the login flow that produced it keeps working.
+- Duplicate check on the plaintext `UserName` (`UserName` must stay plaintext —
+  ciphertext cannot be matched in a database query).
+- Only the encrypted record is inserted. The original `UserInfo` stays in memory
+  in plaintext, so the login flow that produced it keeps working.
 
 | Field                        | Stored as                                  | Why                                             |
 | ---------------------------- | ------------------------------------------- | ----------------------------------------------- |
@@ -128,8 +134,9 @@ using OnePulse.Features.LoginManager.Services;
 // 1. Get the manager (database + key are initialized lazily on first login)
 var manager = LoginManager.Instance;
 
-// 2. Store an account after a successful login
-var result = manager.Add.AddUserInfo(userInfo);   // userInfo from the login flow
+// 2. Convert + store an account after a successful login
+var storageUser = manager.Converter.ToStorageUser(userInfo);  // encrypts sensitive fields
+var result = manager.Add.AddUser(storageUser);
 if (result.Result == ApiResult.Success)
     Console.WriteLine("Account saved");
 
