@@ -4,13 +4,6 @@ namespace OnePulse.Pan123.Api.Services
 {
     public partial class NetSession
     {
-        private static readonly Lazy<NetSession> lazy = new(() => new());
-
-        public static NetSession Instance
-        {
-            get { return lazy.Value; }
-        }
-
         // 子服务
         public AuthService Auth { get; }
         internal UtilityService Utils { get; }

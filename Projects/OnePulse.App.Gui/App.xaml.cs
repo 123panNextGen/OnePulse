@@ -1,7 +1,7 @@
 ﻿using Microsoft.UI.Xaml;
 using OnePulse.App.Windows;
 
-namespace OnePulse.App
+namespace OnePulse.App.Gui
 {
     public partial class App : Application
     {

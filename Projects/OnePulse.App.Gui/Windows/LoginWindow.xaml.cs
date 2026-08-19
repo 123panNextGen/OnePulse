@@ -1,6 +1,6 @@
 ﻿using Microsoft.UI.Xaml;
 
-namespace OnePulse.App.Windows;
+namespace OnePulse.App.Gui.Windows;
 
 public sealed partial class LoginWindow : Window
 {

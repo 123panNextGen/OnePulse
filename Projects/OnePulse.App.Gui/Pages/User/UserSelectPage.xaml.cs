@@ -2,7 +2,7 @@
 using OnePulse.Features.LoginManager.Services;
 using System;
 
-namespace OnePulse.App.Pages.User
+namespace OnePulse.App.Gui.Pages.User
 {
     public sealed partial class UserSelectPage : Page
     {

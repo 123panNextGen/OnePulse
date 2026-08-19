@@ -3,7 +3,8 @@
     <File Path=".editorconfig" />
     <File Path="README.md" />
   </Folder>
-  <Project Path="Projects/OnePulse.App/OnePulse.App.csproj">
+  <Project Path="Projects/OnePulse.App.Cli/OnePulse.App.Cli.csproj" />
+  <Project Path="Projects/OnePulse.App.Gui/OnePulse.App.Gui.csproj">
     <Platform Project="x64" />
     <Deploy />
   </Project>

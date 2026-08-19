@@ -6,18 +6,10 @@
         QRCodeLogin,
     }
 
-    public class DeviceInfo
+    public class DeviceInfo(string os, string type)
     {
-        public string OS { get; set; } = "";
-        public string Type { get; set; } = "";
-
-        public DeviceInfo() { }
-
-        public DeviceInfo(string os, string type)
-        {
-            OS = os;
-            Type = type;
-        }
+        public string OS { get; set; } = os;
+        public string Type { get; set; } = type;
     }
 
     public class UserInfo

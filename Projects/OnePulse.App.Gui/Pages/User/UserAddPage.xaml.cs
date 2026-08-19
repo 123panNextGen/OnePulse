@@ -1,7 +1,7 @@
 ﻿using Microsoft.UI.Xaml.Controls;
 
 
-namespace OnePulse.App.Pages.User
+namespace OnePulse.App.Gui.Pages.User
 {
     public sealed partial class UserAddPage : Page
     {
