@@ -11,4 +11,8 @@
     <PackageReference Include="System.CommandLine" Version="2.0.11" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\OnePulse.Pan123.Api\OnePulse.Pan123.Api.csproj" />
+  </ItemGroup>
+
 </Project>

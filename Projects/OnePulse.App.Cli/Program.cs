@@ -1,39 +1,58 @@
-﻿using System;
-using System.CommandLine;
+﻿using System.CommandLine;
+using System.CommandLine.Invocation;
 using System.CommandLine.Parsing;
 
 namespace OnePulse.App.Cli;
 
-class Program
+internal static class Program
 {
     static int Main(string[] args)
     {
-        Option<FileInfo> fileOption = new("--file")
+        Option<string> tokenOption = new(name: "--token")
         {
-            Description = "The file to read and display on the console"
+            Description = "The token for authentication.",
+            Required = false,
         };
 
-        RootCommand rootCommand = new("Sample app for System.CommandLine");
-        rootCommand.Options.Add(fileOption);
+        Option<string> loginUserNameOption = new(name: "--user-name")
+        {
+            Description = "The user name for login.",
+            Required = true,
+        };
+        Option<string> loginPasswordOption = new(name: "--password")
+        {
+            Description = "The password for login.",
+            Required = true,
+        };
+        Option<string> loginUuidOption = new(name: "--uuid")
+        {
+            Description = "The UUID for login.",
+            Required = false,
+            DefaultValueFactory = (_) => Guid.NewGuid().ToString(),
+        };
+        Option<string> loginDeviceOption = new(name: "--device")
+        {
+            Description = "The Device for login.",
+            Required = false,
+            DefaultValueFactory = (_) => "Xiaomi:17",
+        };
+
+        RootCommand rootCommand = new("OnePulse CommandLine Tool");
+        rootCommand.Options.Add(tokenOption);
+
+
+        Command authCommand = new("auth", "Authentication commands");
+        rootCommand.Subcommands.Add(authCommand);
+
+        Command loginCommand = new("login", "Login command");
+        loginCommand.Options.Add(loginUserNameOption);
+        loginCommand.Options.Add(loginPasswordOption);
+        loginCommand.Options.Add(loginUuidOption);
+        loginCommand.Options.Add(loginDeviceOption);
+        authCommand.Subcommands.Add(loginCommand);
+
 
         ParseResult parseResult = rootCommand.Parse(args);
-        if (parseResult.Errors.Count == 0 && parseResult.GetValue(fileOption) is FileInfo parsedFile)
-        {
-            ReadFile(parsedFile);
-            return 0;
-        }
-        foreach (ParseError parseError in parseResult.Errors)
-        {
-            System.Console.Error.WriteLine(parseError.Message);
-        }
-        return 1;
-    }
-
-    static void ReadFile(FileInfo file)
-    {
-        foreach (string line in File.ReadLines(file.FullName))
-        {
-            System.Console.WriteLine(line);
-        }
+        return parseResult.Invoke();
     }
 }
