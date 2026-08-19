@@ -19,6 +19,7 @@ namespace OnePulse.Features.LoginManager.Services
         internal IUtilityService Utils { get; }
         public IAddService Add { get; }
         public IGetService Get { get; }
+        public IDeleteService Delete { get; }
         public ISecureKeyStore KeyStore { get; }
 
         public string AppDataPath =
@@ -36,6 +37,7 @@ namespace OnePulse.Features.LoginManager.Services
             Utils = new UtilityService(this);
             Add = new AddService(this);
             Get = new GetService(this);
+            Delete = new DeleteService(this);
 
             // 数据库初始化依赖 KeyStore.Key，必须在全部服务注册后执行
             Utils.Initialize();

@@ -26,12 +26,19 @@ inside remain inaccessible.
 ## Architecture
 
 ```
+Models/
+└── StorageUser.cs                      # Storage record: display fields + encrypted UserInfo
+
 Services/
 ├── LoginManager.cs                     # Singleton, owns the database and registers sub-services
 ├── LoginManager.UtilityService.cs     # Opens the LiteDB database with the stored key
-├── LoginManager.AddService.cs         # Writes encrypted user records
+├── LoginManager.AddService.cs         # Wraps + encrypts UserInfo into a StorageUser record
+├── LoginManager.GetService.cs         # Reads StorageUser records and decrypts UserInfo
+├── LoginManager.DeleteService.cs      # Deletes a user by plaintext UserName
 ├── Interface/
 │   ├── IAddService.cs                 # Contract for adding a user account
+│   ├── IGetService.cs                 # Contract for reading users
+│   ├── IDeleteService.cs              # Contract for deleting a user
 │   ├── IUtilityService.cs             # Contract for database initialization
 │   └── ISecureKeyStore.cs             # Contract for the database key
 └── SecureCrypto/
@@ -46,7 +53,9 @@ Services/
 │                                                              │
 │  KeyStore ── GenerateRandomKey/read key.dat ──► LiteDB password
 │  Utils ───── opens LiteDB with password ───────────────────┐ │
-│  Add ─────── UserInfoProtector.Encrypt() ──► Insert()     │ │
+│  Add ─────── UserInfoProtector.Encrypt() ──► StorageUser ─►│ │
+│  Get ─────── UserInfoProtector.Decrypt() ◄── StorageUser ◄─│ │
+│  Delete ──── DeleteMany(UserName)                          │ │
 └────────────────────────────────────────────────────────────┘ │
                                                                ▼
    %APPDATA%\OnePulse\Database\UserInfo.db   (AES-encrypted)
@@ -81,25 +90,35 @@ LoginManager()                     # ctor
 
 - Duplicate check on the plaintext `UserName` (`UserName` must stay plaintext —
   ciphertext cannot be matched in a database query).
-- Creates an encrypted copy via `UserInfoProtector.Encrypt(info)`:
-  `Password`, `Authorization`, `Uuid` are DPAPI-encrypted; `OpenInfo` is
-  serialized to JSON and encrypted into the `OpenInfoCipher` column.
-- Only the encrypted copy is inserted. The original object stays in memory in
+- Wraps the info into a `StorageUser` record: outer display fields stay
+  plaintext, and the inner `UserInfo` is encrypted via `UserInfoProtector.Encrypt`
+  (`Password`, `Authorization`, `Uuid` are DPAPI-encrypted; `OpenInfo` is
+  serialized to JSON and encrypted into the `OpenInfoCipher` column).
+- Only the encrypted record is inserted. The original object stays in memory in
   plaintext, so the login flow that produced it keeps working.
 
-| Field           | Stored as                                  | Why                                             |
-| --------------- | ------------------------------------------ | ----------------------------------------------- |
-| `UserName`      | plaintext                                  | needed for duplicate checks (query) and display |
-| `Password`      | DPAPI ciphertext                           | login credential                                |
-| `Authorization` | DPAPI ciphertext                           | session token                                   |
-| `Uuid`          | DPAPI ciphertext                           | device-bound token                              |
-| `OpenInfo`      | JSON → DPAPI ciphertext (`OpenInfoCipher`) | open-platform user info incl. tokens            |
-| `DeviceInfo`    | plaintext                                  | non-sensitive                                   |
+| Field                        | Stored as                                  | Why                                             |
+| ---------------------------- | ------------------------------------------- | ----------------------------------------------- |
+| `StorageUser.UserId`         | plaintext                                  | account id (from `OpenInfo.Uid`)                |
+| `StorageUser.UserName`       | plaintext                                  | needed for duplicate checks (query) and display |
+| `StorageUser.HeadImageUrl`   | plaintext                                  | avatar url                                      |
+| `UserInfo.Password`          | DPAPI ciphertext                           | login credential                                |
+| `UserInfo.Authorization`     | DPAPI ciphertext                           | session token                                   |
+| `UserInfo.Uuid`              | DPAPI ciphertext                           | device-bound token                              |
+| `UserInfo.OpenInfo`          | JSON → DPAPI ciphertext (`OpenInfoCipher`) | open-platform user info incl. tokens            |
+| `UserInfo.DeviceInfo`        | plaintext                                  | non-sensitive                                   |
 
-### 3. Reading an account (to be added with a future query service)
+### 3. Reading accounts
 
-Use `UserInfoProtector.Decrypt(stored)` to reverse the mapping and obtain in-memory
-plaintext credentials from a stored record.
+`IGetService.GetUsers()` reads all `StorageUser` records and decrypts the inner
+`UserInfo` via `UserInfoProtector.Decrypt` before returning, so callers receive
+in-memory plaintext credentials directly.
+
+### 4. Deleting an account
+
+`IDeleteService.DeleteUser(userName)` removes the record whose plaintext
+`UserName` matches (the same key as the duplicate check), returning
+`ApiResult.Failed` with `用户不存在` when no such user exists.
 
 ## Usage
 
@@ -114,9 +133,15 @@ var result = manager.Add.AddUserInfo(userInfo);   // userInfo from the login flo
 if (result.Result == ApiResult.Success)
     Console.WriteLine("Account saved");
 
-// 3. That's all the API surface for now –
-//    a read service (GetAllUsers / GetUserByUserName) will build on
-//    UserInfoProtector.Decrypt when needed
+// 3. List saved users (inner credentials are decrypted on read)
+var users = manager.Get.GetUsers();
+foreach (var user in users)
+    Console.WriteLine($"{user.UserName} - {user.UserInfo.OpenInfo?.Passport}");
+
+// 4. Delete an account
+var deleteResult = manager.Delete.DeleteUser(userName);
+if (deleteResult.Result == ApiResult.Success)
+    Console.WriteLine("Account deleted");
 ```
 
 ## Security Properties & Trade-offs
