@@ -21,6 +21,7 @@ namespace OnePulse.Features.LoginManager.Services
         public IGetService Get { get; }
         public IDeleteService Delete { get; }
         public ISecureKeyStore KeyStore { get; }
+        public IUserInfoConverter Converter { get; }
 
         public string AppDataPath =
             Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\OnePulse";
@@ -34,6 +35,7 @@ namespace OnePulse.Features.LoginManager.Services
 
             // 注册服务
             KeyStore = new SecureKeyStore(AppDataPath);
+            Converter = new UserInfoConverter();
             Utils = new UtilityService(this);
             Add = new AddService(this);
             Get = new GetService(this);
