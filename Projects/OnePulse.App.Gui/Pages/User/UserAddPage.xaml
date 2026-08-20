@@ -8,5 +8,71 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid />
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock
+            Grid.Row="0"
+            Margin="26,10,0,0"
+            FontSize="28"
+            FontWeight="Bold"
+            Text="新建用户" />
+
+        <Grid
+            Grid.Row="1"
+            Padding="64,24"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            ColumnSpacing="24">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="320" />
+            </Grid.ColumnDefinitions>
+
+            <Rectangle
+                Width="256"
+                Height="256"
+                Fill="#DDD"
+                RadiusX="12"
+                RadiusY="12"
+                Stroke="{ThemeResource ControlFillColorDefaultBrush}"
+                StrokeThickness="4" />
+
+            <Grid Grid.Column="1" RowSpacing="8">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+
+                <TextBlock Text="用户名: " />
+                <TextBox Grid.Row="1" />
+                <TextBlock Grid.Row="2" Text="密码: " />
+                <PasswordBox Grid.Row="3" />
+
+                <ScrollView Grid.Row="4" VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <CheckBox Content="需要验证是否有效" />
+                        <CheckBox Content="登录并进入" />
+                    </StackPanel>
+                </ScrollView>
+
+                <StackPanel
+                    Grid.Row="5"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal"
+                    Spacing="4">
+                    <Button Content="登录" Style="{StaticResource AccentButtonStyle}" />
+                    <Button Content="取消" />
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Grid>
 </Page>

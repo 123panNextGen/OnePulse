@@ -20,4 +20,12 @@ public sealed partial class LoginWindow : Window
         manager.MinWidth = 800;
         manager.MinHeight = 600;
     }
+
+    private void AppTitleBar_BackRequested(Microsoft.UI.Xaml.Controls.TitleBar sender, object args)
+    {
+        if (rootFrame.CanGoBack == true)
+        {
+            rootFrame.GoBack();
+        }
+    }
 }
