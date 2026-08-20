@@ -66,17 +66,13 @@
                     <StackPanel>
                         <CheckBox
                             x:Name="ValidationCheckBox"
-                            Checked="ValidationCheckBox_Checked"
                             Content="需要验证是否有效"
-                            IsChecked="{x:Bind NeedValidation, Mode=OneWay}"
-                            IsEnabled="{x:Bind NeedLoginAndEnter, Mode=OneWay, Converter={StaticResource InvertBoolConverter}}"
-                            Unchecked="ValidationCheckBox_Unchecked" />
+                            IsChecked="{x:Bind ViewModel.NeedValidation, Mode=TwoWay}"
+                            IsEnabled="{x:Bind ViewModel.NeedLoginAndEnter, Mode=OneWay, Converter={StaticResource InvertBoolConverter}}" />
                         <CheckBox
                             x:Name="LoginAndEnterCheckBox"
-                            Checked="LoginAndEnterCheckBox_Checked"
                             Content="登录并进入"
-                            IsChecked="{x:Bind NeedLoginAndEnter, Mode=OneWay}"
-                            Unchecked="LoginAndEnterCheckBox_Unchecked" />
+                            IsChecked="{x:Bind ViewModel.NeedLoginAndEnter, Mode=TwoWay}" />
                     </StackPanel>
                 </ScrollView>
 
