@@ -25,9 +25,15 @@ namespace OnePulse.App.Cli.Options.Auth
         };
         public Option<string> DeviceOption = new(name: "--device")
         {
-            Description = "The Device for login.",
+            Description = "The Device for login. (e.g., Xiaomi:17)",
             Required = false,
-            DefaultValueFactory = (_) => "Xiaomi:17",
+        };
+
+        public Option<bool> ReplaceOption = new(name: "--replace")
+        {
+            Description = "Replace the existing token.",
+            Required = false,
+            DefaultValueFactory = (_) => false,
         };
     }
 }
