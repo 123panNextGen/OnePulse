@@ -9,13 +9,11 @@
     xmlns:pages="using:OnePulse.App.Gui.Pages.User"
     Title="LoginWindow"
     mc:Ignorable="d">
-
     <Window.SystemBackdrop>
         <MicaBackdrop />
     </Window.SystemBackdrop>
 
     <Grid>
-
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -24,12 +22,18 @@
         <TitleBar
             x:Name="AppTitleBar"
             Title="OnePulse"
+            BackRequested="AppTitleBar_BackRequested"
+            IsBackButtonEnabled="{x:Bind rootFrame.CanGoBack, Mode=OneWay}"
+            IsBackButtonVisible="True"
             Subtitle="Login">
             <TitleBar.IconSource>
                 <FontIconSource Glyph="&#xE77B;" />
             </TitleBar.IconSource>
         </TitleBar>
 
-        <Frame Grid.Row="1" SourcePageType="pages:UserSelectPage" />
+        <Frame
+            x:Name="rootFrame"
+            Grid.Row="1"
+            SourcePageType="pages:UserSelectPage" />
     </Grid>
 </Window>
