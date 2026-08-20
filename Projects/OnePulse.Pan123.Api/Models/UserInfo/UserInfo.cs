@@ -18,6 +18,17 @@
         }
 
         public DeviceInfo() { }
+
+        public static DeviceInfo NewDeviceInfo(string device)
+        {
+            string[] deviceParts = device.Split([':'], 2);
+
+            return new DeviceInfo
+            {
+                OS = deviceParts.Length > 0 ? deviceParts[0] : string.Empty,
+                Type = deviceParts.Length > 1 ? deviceParts[1] : string.Empty,
+            };
+        }
     }
 
     public class UserInfo

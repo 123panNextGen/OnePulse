@@ -8,7 +8,6 @@
     xmlns:local="using:OnePulse.App.Gui.Pages.User"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-
     <Page.Resources>
         <conventers:InvertBoolConverter x:Key="InvertBoolConverter" />
     </Page.Resources>
@@ -56,22 +55,19 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-
                 <TextBlock Text="用户名: " />
-                <TextBox
-                    Grid.Row="1"
-                    Text="{x:Bind ViewModel.UserName, Mode=TwoWay}" />
+                <TextBox Grid.Row="1" Text="{x:Bind ViewModel.UserName, Mode=TwoWay}" />
                 <TextBlock Grid.Row="2" Text="密码: " />
                 <PasswordBox
-                    Grid.Row="3"
                     x:Name="PasswordInputBox"
+                    Grid.Row="3"
                     PasswordChanged="PasswordInputBox_PasswordChanged" />
 
                 <ScrollView Grid.Row="4" VerticalScrollBarVisibility="Auto">
                     <StackPanel>
                         <CheckBox
                             x:Name="ValidationCheckBox"
-                            Content="需要验证是否有效"
+                            Content="验证是否有效"
                             IsChecked="{x:Bind ViewModel.NeedValidation, Mode=TwoWay}"
                             IsEnabled="{x:Bind ViewModel.NeedLoginAndEnter, Mode=OneWay, Converter={StaticResource InvertBoolConverter}}" />
                         <CheckBox
@@ -86,7 +82,11 @@
                     HorizontalAlignment="Right"
                     Orientation="Horizontal"
                     Spacing="4">
-                    <Button Content="登录" Style="{StaticResource AccentButtonStyle}" />
+                    <Button
+                        x:Name="LoginButton"
+                        Click="LoginButton_Click"
+                        Content="登录"
+                        Style="{StaticResource AccentButtonStyle}" />
                     <Button
                         x:Name="CancelButton"
                         Click="CancelButton_Click"

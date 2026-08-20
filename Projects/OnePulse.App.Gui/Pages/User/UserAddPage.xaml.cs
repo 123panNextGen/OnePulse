@@ -1,4 +1,5 @@
 ﻿using Microsoft.UI.Xaml.Controls;
+using OnePulse.App.Gui.Services;
 using OnePulse.App.Gui.ViewModels;
 
 namespace OnePulse.App.Gui.Pages.User
@@ -21,6 +22,16 @@ namespace OnePulse.App.Gui.Pages.User
         {
             if (Frame.CanGoBack)
                 Frame.GoBack();
+        }
+
+        private void LoginButton_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+        {
+            if (ViewModel.UserName.Trim().Length <= 0)
+            {
+                NotificationService.Show("错误", "用户名为空", InfoBarSeverity.Error);
+                return;
+            }
+
         }
     }
 }

@@ -2,7 +2,7 @@ using OnePulse.Pan123.Api.Models;
 using OnePulse.Pan123.Api.Models.UserInfo;
 using OnePulse.Pan123.Api.Services;
 
-namespace OnePulse.App.Gui.Commands.Auth
+namespace OnePulse.App.Cli.Commands.Auth
 {
     // 登录动作与命令定义分离：LoginAction 不依赖 System.CommandLine，
     // 可被单元测试直接调用，也便于将来被其他入口（如 GUI）复用
@@ -50,13 +50,7 @@ namespace OnePulse.App.Gui.Commands.Auth
             // 设备串格式为 "OS:类型"，未提供时兜底为 123pan 客户端常见取值
             device ??= "Xiaomi:17";
 
-            string[] deviceParts = device.Split([':'], 2);
-
-            var deviceInfo = new DeviceInfo
-            {
-                OS = deviceParts.Length > 0 ? deviceParts[0] : string.Empty,
-                Type = deviceParts.Length > 1 ? deviceParts[1] : string.Empty
-            };
+            var deviceInfo = DeviceInfo.NewDeviceInfo(device);
 
             var userInfo = new UserInfo
             {

@@ -35,11 +35,11 @@ namespace OnePulse.App.Gui.Pages.User
 
         private async void OnDeleteClick(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
         {
-            if (UserInfoListView.SelectedItem is not StorageUser selected)
+            if (SelectedUser == null)
                 return;
 
             // 删除以 StorageUser.Uuid（唯一记录键）定位；旧库遗留记录无 Uuid，无法安全删除
-            if (string.IsNullOrEmpty(selected.Uuid))
+            if (string.IsNullOrEmpty(SelectedUser.Uuid))
             {
                 await new ContentDialog
                 {
@@ -64,7 +64,7 @@ namespace OnePulse.App.Gui.Pages.User
             if (await confirm.ShowAsync() != ContentDialogResult.Primary)
                 return;
 
-            var result = Manager.Delete.DeleteUser(selected.Uuid);
+            var result = Manager.Delete.DeleteUser(SelectedUser.Uuid);
             if (result.Result == ApiResult.Success)
             {
                 UpdateUserList();

@@ -1,4 +1,5 @@
 ﻿using Microsoft.UI.Xaml;
+using OnePulse.App.Gui.Services;
 
 namespace OnePulse.App.Gui.Windows;
 
@@ -11,6 +12,11 @@ public sealed partial class LoginWindow : Window
 
         InitializeComponent();
         SetWindowMinSize();
+
+        this.Activated += (s, e) =>
+        {
+            NotificationService.Initialize(NotificationQueue);
+        };
     }
 
     private void SetWindowMinSize()

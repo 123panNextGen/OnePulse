@@ -3,7 +3,9 @@
     x:Class="OnePulse.App.Gui.Windows.LoginWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:behaviors="using:CommunityToolkit.WinUI.Behaviors"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:local="using:OnePulse.App.Gui.Windows"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:pages="using:OnePulse.App.Gui.Pages.User"
@@ -35,5 +37,18 @@
             x:Name="rootFrame"
             Grid.Row="1"
             SourcePageType="pages:UserSelectPage" />
+
+        <InfoBar
+            x:Name="GlobalInfoBar"
+            Grid.Row="1"
+            MaxWidth="480"
+            Margin="24,12,24,24"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top">
+            <!--  固定在内容区域右上角  -->
+            <interactivity:Interaction.Behaviors>
+                <behaviors:StackedNotificationsBehavior x:Name="NotificationQueue" />
+            </interactivity:Interaction.Behaviors>
+        </InfoBar>
     </Grid>
 </Window>
