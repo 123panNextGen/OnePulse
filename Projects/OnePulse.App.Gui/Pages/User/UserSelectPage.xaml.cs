@@ -35,8 +35,21 @@ namespace OnePulse.App.Gui.Pages.User
 
         private async void OnDeleteClick(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
         {
-            if (SelectedUser == null || SelectedUser.UserName == null)
+            if (UserInfoListView.SelectedItem is not StorageUser selected)
                 return;
+
+            // 删除以 StorageUser.Uuid（唯一记录键）定位；旧库遗留记录无 Uuid，无法安全删除
+            if (string.IsNullOrEmpty(selected.Uuid))
+            {
+                await new ContentDialog
+                {
+                    Title = "删除失败",
+                    Content = "该用户为旧版本保存的记录，缺少唯一标识，无法删除。",
+                    CloseButtonText = "确定",
+                    XamlRoot = XamlRoot,
+                }.ShowAsync();
+                return;
+            }
 
             var confirm = new ContentDialog
             {
@@ -51,7 +64,7 @@ namespace OnePulse.App.Gui.Pages.User
             if (await confirm.ShowAsync() != ContentDialogResult.Primary)
                 return;
 
-            var result = Manager.Delete.DeleteUser(SelectedUser.UserName);
+            var result = Manager.Delete.DeleteUser(selected.Uuid);
             if (result.Result == ApiResult.Success)
             {
                 UpdateUserList();

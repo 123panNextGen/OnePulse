@@ -20,6 +20,9 @@ namespace OnePulse.Features.LoginManager.Services
 
             return new StorageUser
             {
+                // 转换时生成唯一记录键：一次生成、永久稳定，删除/定位不再依赖可变的 UserName；
+                // 与 UserInfo.Uuid（设备绑定令牌）无关，两者职责分离
+                Uuid = Guid.NewGuid().ToString(),
                 // 外层字段保持明文，仅供列表展示与重名查询
                 UserId = info.OpenInfo?.Uid.ToString() ?? "",
                 UserName = info.UserName,

@@ -26,6 +26,7 @@ namespace OnePulse.Features.LoginManager.Services
                     .FindAll()
                     .Select(stored => new StorageUser
                     {
+                        Uuid = stored.Uuid,
                         UserId = stored.UserId,
                         UserName = stored.UserName,
                         HeadImageUrl = stored.HeadImageUrl,
