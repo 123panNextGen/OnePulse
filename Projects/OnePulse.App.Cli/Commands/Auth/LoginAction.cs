@@ -2,7 +2,7 @@ using OnePulse.Pan123.Api.Models;
 using OnePulse.Pan123.Api.Models.UserInfo;
 using OnePulse.Pan123.Api.Services;
 
-namespace OnePulse.App.Cli.Commands.Auth
+namespace OnePulse.App.Gui.Commands.Auth
 {
     // 登录动作与命令定义分离：LoginAction 不依赖 System.CommandLine，
     // 可被单元测试直接调用，也便于将来被其他入口（如 GUI）复用

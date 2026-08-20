@@ -1,6 +1,6 @@
 using System.CommandLine;
 
-namespace OnePulse.App.Cli.Commands.Auth
+namespace OnePulse.App.Gui.Commands.Auth
 {
     // 登录选项集中于此，与 LoginCommand 同目录：选项只被 login 命令使用，
     // 与命令放在一起保证改选项和改命令不用跨目录

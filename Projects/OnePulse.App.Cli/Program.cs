@@ -1,9 +1,9 @@
 ﻿using System.CommandLine;
 using System.CommandLine.Parsing;
-using OnePulse.App.Cli.Commands.Auth;
-using OnePulse.App.Cli.Options;
+using OnePulse.App.Gui.Commands.Auth;
+using OnePulse.App.Gui.Options;
 
-namespace OnePulse.App.Cli;
+namespace OnePulse.App.Gui;
 
 internal static class Program
 {

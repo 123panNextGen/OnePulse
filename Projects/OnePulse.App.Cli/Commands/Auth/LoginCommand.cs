@@ -1,7 +1,7 @@
 using System.CommandLine;
 using System.CommandLine.Invocation;
 
-namespace OnePulse.App.Cli.Commands.Auth
+namespace OnePulse.App.Gui.Commands.Auth
 {
     // 命令定义与动作逻辑分离：本类只负责 System.CommandLine 接线，
     // 实际登录行为在 LoginAction 中，便于单独测试与复用
