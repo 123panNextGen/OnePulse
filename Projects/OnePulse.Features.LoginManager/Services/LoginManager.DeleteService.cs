@@ -14,12 +14,13 @@ namespace OnePulse.Features.LoginManager.Services
                 _session = session;
             }
 
-            public ApiReturn<string> DeleteUser(string userName)
+            public ApiReturn<string> DeleteUser(string uuid)
             {
                 ArgumentNullException.ThrowIfNull(_session.UserCollections);
 
-                // 以明文 UserName 匹配删除（与 AddService 重名检查同一键）
-                var deleted = _session.UserCollections.DeleteMany(s => s.UserName == userName);
+                // 以 StorageUser.Uuid（转换时生成的 Guid 字符串）匹配删除，
+                // 与 UserInfo.Uuid（设备令牌）无关；遗留旧记录无 Uuid 将匹配不到
+                var deleted = _session.UserCollections.DeleteMany(s => s.Uuid == uuid);
 
                 return deleted > 0
                     ? new ApiReturn<string>(ApiResult.Success)
