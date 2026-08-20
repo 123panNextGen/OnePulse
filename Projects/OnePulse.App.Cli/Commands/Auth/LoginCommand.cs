@@ -20,14 +20,18 @@ namespace OnePulse.App.Cli.Commands.Auth
             Command.Options.Add(options.ReplaceOption);
 
             // token 定义在根命令上，但子命令的解析结果中同样可取到
-            Command.SetAction(async parseResult => await new LoginAction().LoginActionAsync(
-                userName: parseResult.GetValue(options.UserNameOption),
-                password: parseResult.GetValue(options.PasswordOption),
-                uuid: parseResult.GetValue(options.UuidOption),
-                device: parseResult.GetValue(options.DeviceOption),
-                token: parseResult.GetValue(tokenOption),
-                replaceToken: parseResult.GetValue(options.ReplaceOption)
-            ));
+            Command.SetAction(async parseResult =>
+            {
+                var result = await new LoginAction().LoginActionAsync(
+                    userName: parseResult.GetValue(options.UserNameOption),
+                    password: parseResult.GetValue(options.PasswordOption),
+                    uuid: parseResult.GetValue(options.UuidOption),
+                    device: parseResult.GetValue(options.DeviceOption),
+                    token: parseResult.GetValue(tokenOption),
+                    replaceToken: parseResult.GetValue(options.ReplaceOption)
+                );
+                Console.WriteLine(result);
+            });
         }
     }
 }
