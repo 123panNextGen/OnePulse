@@ -8,7 +8,7 @@ namespace OnePulse.App.Cli.Options
     {
         public Option<string> Option { get; } = new(name: "--token", ["-T"])
         {
-            Description = "The token for authentication.",
+            Description = "The token for authentication. (Without Bearer prefix)",
             Required = false,
         };
     }
