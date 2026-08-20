@@ -12,6 +12,11 @@ namespace OnePulse.App.Gui.Pages.User
             InitializeComponent();
         }
 
+        private void PasswordInputBox_PasswordChanged(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+        {
+            ViewModel.Password = PasswordInputBox.Password;
+        }
+
         private void CancelButton_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
         {
             if (Frame.CanGoBack)
