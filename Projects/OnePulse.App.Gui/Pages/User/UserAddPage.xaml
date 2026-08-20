@@ -82,7 +82,10 @@
                     Orientation="Horizontal"
                     Spacing="4">
                     <Button Content="登录" Style="{StaticResource AccentButtonStyle}" />
-                    <Button Content="取消" />
+                    <Button
+                        x:Name="CancelButton"
+                        Click="CancelButton_Click"
+                        Content="取消" />
                 </StackPanel>
             </Grid>
         </Grid>

@@ -11,5 +11,11 @@ namespace OnePulse.App.Gui.Pages.User
         {
             InitializeComponent();
         }
+
+        private void CancelButton_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+        {
+            if (Frame.CanGoBack)
+                Frame.GoBack();
+        }
     }
 }
