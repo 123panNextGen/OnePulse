@@ -1,8 +1,8 @@
-using System;
-using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using OnePulse.Pan123.Api.Models;
 using OnePulse.Pan123.Api.Models.UserInfo;
+using System;
+using System.Threading.Tasks;
 
 namespace OnePulse.App.Gui.ViewModels
 {

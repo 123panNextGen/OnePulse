@@ -1,7 +1,6 @@
-﻿using System.CommandLine;
-using System.CommandLine.Parsing;
-using OnePulse.App.Gui.Commands.Auth;
+﻿using OnePulse.App.Gui.Commands.Auth;
 using OnePulse.App.Gui.Options;
+using System.CommandLine;
 
 namespace OnePulse.App.Gui;
 

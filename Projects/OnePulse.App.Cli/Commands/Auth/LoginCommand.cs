@@ -1,5 +1,4 @@
 using System.CommandLine;
-using System.CommandLine.Invocation;
 
 namespace OnePulse.App.Gui.Commands.Auth
 {

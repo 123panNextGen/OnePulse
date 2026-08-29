@@ -2,8 +2,6 @@
 using OnePulse.Pan123.Api.Models.UserInfo;
 using OnePulse.Pan123.Api.Services;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace OnePulse.App.Gui.ViewModels

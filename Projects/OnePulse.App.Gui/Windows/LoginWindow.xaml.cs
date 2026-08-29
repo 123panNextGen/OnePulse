@@ -13,7 +13,7 @@ public sealed partial class LoginWindow : Window
         InitializeComponent();
         SetWindowMinSize();
 
-        this.Activated += (s, e) =>
+        Activated += (s, e) =>
         {
             NotificationService.Initialize(NotificationQueue);
         };

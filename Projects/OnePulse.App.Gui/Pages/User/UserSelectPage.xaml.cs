@@ -1,10 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using Microsoft.UI.Xaml.Controls;
 using OnePulse.Features.LoginManager.Models;
 using OnePulse.Features.LoginManager.Services;
 using OnePulse.Pan123.Api.Models;
+using System;
+using System.Collections.ObjectModel;
 
 namespace OnePulse.App.Gui.Pages.User
 {
@@ -84,7 +83,8 @@ namespace OnePulse.App.Gui.Pages.User
         private void UserInfoListView_SelectionChanged(
             object sender,
             SelectionChangedEventArgs e
-        ) {
+        )
+        {
             SelectedUser = (StorageUser?)UserInfoListView.SelectedItem;
         }
 
