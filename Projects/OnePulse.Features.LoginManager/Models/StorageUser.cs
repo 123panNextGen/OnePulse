@@ -8,9 +8,6 @@ namespace OnePulse.Features.LoginManager.Models
     {
         public int? Version { get; set; } = 1;
 
-        // 存储记录的唯一稳定键（Guid 字符串），由 UserInfoConverter 转换时生成。
-        // 为什么：UserName 可变且可能重名，不能作为可靠的删除/定位键；
-        // 默认空串用于识别旧库中尚无 Uuid 的遗留记录
         public string Uuid { get; set; } = "";
 
         public string UserId { get; set; } = "";

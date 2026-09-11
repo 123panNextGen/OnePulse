@@ -1,6 +1,6 @@
 using System.CommandLine;
 
-namespace OnePulse.App.Gui.Commands.Auth
+namespace OnePulse.App.Cli.Commands.Auth
 {
     // 命令定义与动作逻辑分离：本类只负责 System.CommandLine 接线，
     // 实际登录行为在 LoginAction 中，便于单独测试与复用
@@ -10,7 +10,7 @@ namespace OnePulse.App.Gui.Commands.Auth
 
         public LoginCommand(Option<string> tokenOption)
         {
-            var options = new LoginOptions();
+            LoginOptions options = new();
 
             Command.Options.Add(options.UserNameOption);
             Command.Options.Add(options.PasswordOption);
@@ -21,7 +21,7 @@ namespace OnePulse.App.Gui.Commands.Auth
             // token 定义在根命令上，但子命令的解析结果中同样可取到
             Command.SetAction(async parseResult =>
             {
-                var result = await new LoginAction().LoginActionAsync(
+                string result = await new LoginAction().LoginActionAsync(
                     userName: parseResult.GetValue(options.UserNameOption),
                     password: parseResult.GetValue(options.PasswordOption),
                     uuid: parseResult.GetValue(options.UuidOption),

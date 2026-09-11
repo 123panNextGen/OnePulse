@@ -17,7 +17,7 @@
             Type = type;
         }
 
-        public DeviceInfo() { }
+        private DeviceInfo() { }
 
         public static DeviceInfo NewDeviceInfo(string device)
         {
@@ -34,23 +34,23 @@
     public class UserInfo
     {
         // 登录方式
-        public LoginMethod LoginMethod { get; set; } = LoginMethod.PasswordLogin;
+        public LoginMethod LoginMethod { get; init; } = LoginMethod.PasswordLogin;
 
         // 基本信息
-        public string? UserName { get; set; } = "";
-        public string? Password { get; set; } = "";
+        public string? UserName { get; init; } = "";
+        public string? Password { get; init; } = "";
 
         // Token
         public string? Authorization { get; set; }
-        public string? Uuid { get; set; }
+        public string? Uuid { get; init; }
 
         // 登录信息
-        public DeviceInfo? DeviceInfo { get; set; }
+        public DeviceInfo? DeviceInfo { get; init; }
 
-        public OpenUserInfo? OpenInfo { get; set; }
+        public OpenUserInfo? OpenInfo { get; init; }
 
         // 对象无法直接加密，序列化为 JSON 后存密文
-        public string? OpenInfoCipher { get; set; }
+        public string? OpenInfoCipher { get; init; }
 
         public UserInfo() { }
 

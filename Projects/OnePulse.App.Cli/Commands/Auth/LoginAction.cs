@@ -9,20 +9,20 @@ namespace OnePulse.App.Cli.Commands.Auth
     internal class LoginAction
     {
         // 单例会话，复用全局登录状态（Authorization/Uuid 等）
-        internal NetSession Manager { get; private set; } = NetSession.Instance;
+        private NetSession Manager { get; set; } = NetSession.Instance;
 
-        internal async Task<string> LoginByPasswordAsync(UserInfo userInfo)
+        private async Task<string> LoginByPasswordAsync(UserInfo userInfo)
         {
-            var result = await Manager.Auth.LoginByUserInfoAsync(userInfo);
+            ApiReturn<string> result = await Manager.Auth.LoginByUserInfoAsync(userInfo);
 
-            if (result.Result == ApiResult.Success && result.Data != null)
+            if (result is { Result: ApiResult.Success, Data: not null })
                 return result.Data;
 
             // 抛异常让上层捕获，携带服务端返回的错误消息便于排查
             throw new InvalidOperationException($"Failed to login. Msg: {result.Message}");
         }
 
-        internal async Task<string> LoginAsync(UserInfo userInfo, bool replaceToken = false)
+        private async Task<string> LoginAsync(UserInfo userInfo, bool replaceToken = false)
         {
             // 已有令牌且未要求替换时直接复用，避免每次启动都重新登录
             if (userInfo.Authorization != null && !replaceToken)
@@ -50,9 +50,9 @@ namespace OnePulse.App.Cli.Commands.Auth
             // 设备串格式为 "OS:类型"，未提供时兜底为 123pan 客户端常见取值
             device ??= "Xiaomi:17";
 
-            var deviceInfo = DeviceInfo.NewDeviceInfo(device);
+            DeviceInfo deviceInfo = DeviceInfo.NewDeviceInfo(device);
 
-            var userInfo = new UserInfo
+            UserInfo userInfo = new UserInfo
             {
                 UserName = userName,
                 Password = password,

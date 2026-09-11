@@ -49,21 +49,22 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <TextBlock Text="用户名: " />
-                <TextBox Grid.Row="1" Text="{x:Bind ViewModel.UserName, Mode=TwoWay}" />
-                <TextBlock Grid.Row="2" Text="密码: " />
+                <TextBox
+                    Header="用户名:"
+                    PlaceholderText="请输入用户名"
+                    Text="{x:Bind ViewModel.UserName, Mode=TwoWay}" />
                 <PasswordBox
                     x:Name="PasswordInputBox"
-                    Grid.Row="3"
-                    PasswordChanged="PasswordInputBox_PasswordChanged" />
+                    Grid.Row="1"
+                    Header="密码:"
+                    PasswordChanged="PasswordInputBox_PasswordChanged"
+                    PlaceholderText="请输入密码" />
 
-                <ScrollView Grid.Row="4" VerticalScrollBarVisibility="Auto">
+                <ScrollView Grid.Row="2" VerticalScrollBarVisibility="Auto">
                     <StackPanel>
                         <CheckBox
                             x:Name="ValidationCheckBox"
@@ -78,7 +79,7 @@
                 </ScrollView>
 
                 <StackPanel
-                    Grid.Row="5"
+                    Grid.Row="3"
                     HorizontalAlignment="Right"
                     Orientation="Horizontal"
                     Spacing="4">

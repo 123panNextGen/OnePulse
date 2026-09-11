@@ -1,21 +1,22 @@
-﻿using OnePulse.App.Gui.Commands.Auth;
-using OnePulse.App.Gui.Options;
+﻿using OnePulse.App.Cli.Commands.Auth;
+using OnePulse.App.Cli.Options;
 using System.CommandLine;
 
-namespace OnePulse.App.Gui;
-
-internal static class Program
+namespace OnePulse.App.Cli
 {
-    internal static int Main(string[] args)
+    internal static class Program
     {
-        // 根级共享选项，auth 各子命令通过构造器引用同一实例
-        var tokenOption = new TokenOption().Option;
+        internal static int Main(string[] args)
+        {
+            // 根级共享选项，auth 各子命令通过构造器引用同一实例
+            Option<string> tokenOption = new TokenOption().Option;
 
-        RootCommand rootCommand = new("OnePulse CommandLine Tool");
-        rootCommand.Options.Add(tokenOption);
-        rootCommand.Subcommands.Add(new AuthCommand(tokenOption).Command);
+            RootCommand rootCommand = new("OnePulse CommandLine Tool");
+            rootCommand.Options.Add(tokenOption);
+            rootCommand.Subcommands.Add(new AuthCommand(tokenOption).Command);
 
-        ParseResult parseResult = rootCommand.Parse(args);
-        return parseResult.Invoke();
+            ParseResult parseResult = rootCommand.Parse(args);
+            return parseResult.Invoke();
+        }
     }
 }

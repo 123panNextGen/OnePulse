@@ -1,9 +1,9 @@
+using System;
+using System.Collections.ObjectModel;
 using Microsoft.UI.Xaml.Controls;
 using OnePulse.Features.LoginManager.Models;
 using OnePulse.Features.LoginManager.Services;
 using OnePulse.Pan123.Api.Models;
-using System;
-using System.Collections.ObjectModel;
 
 namespace OnePulse.App.Gui.Pages.User
 {
@@ -37,19 +37,6 @@ namespace OnePulse.App.Gui.Pages.User
             if (SelectedUser == null)
                 return;
 
-            // 删除以 StorageUser.Uuid（唯一记录键）定位；旧库遗留记录无 Uuid，无法安全删除
-            if (string.IsNullOrEmpty(SelectedUser.Uuid))
-            {
-                await new ContentDialog
-                {
-                    Title = "删除失败",
-                    Content = "该用户为旧版本保存的记录，缺少唯一标识，无法删除。",
-                    CloseButtonText = "确定",
-                    XamlRoot = XamlRoot,
-                }.ShowAsync();
-                return;
-            }
-
             var confirm = new ContentDialog
             {
                 Title = "删除用户",
@@ -80,10 +67,7 @@ namespace OnePulse.App.Gui.Pages.User
             }
         }
 
-        private void UserInfoListView_SelectionChanged(
-            object sender,
-            SelectionChangedEventArgs e
-        )
+        private void UserInfoListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SelectedUser = (StorageUser?)UserInfoListView.SelectedItem;
         }
