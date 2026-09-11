@@ -14,7 +14,7 @@
         public DateTime? EndTime;
     }
 
-    public class OpenUserInfo
+    public abstract class OpenUserInfo
     {
         // 用户信息
         public int Uid { get; init; }

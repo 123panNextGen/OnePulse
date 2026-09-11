@@ -52,6 +52,13 @@
         // 对象无法直接加密，序列化为 JSON 后存密文
         public string? OpenInfoCipher { get; init; }
 
+        public string GetUserName()
+        {
+            if (OpenInfo != null)
+                return (OpenInfo.Nickname ?? OpenInfo.Passport ?? OpenInfo.Mail ?? UserName) ?? string.Empty;
+            return UserName ?? string.Empty;
+        }
+
         public UserInfo() { }
 
         public UserInfo(string username, string password)

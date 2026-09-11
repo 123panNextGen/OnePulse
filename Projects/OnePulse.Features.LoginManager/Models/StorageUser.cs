@@ -6,16 +6,16 @@ namespace OnePulse.Features.LoginManager.Models
     // UserInfo 为加密后的凭据（密文），读取时由 GetService 解密还原
     public class StorageUser
     {
-        public int? Version { get; set; } = 1;
+        public int? Version { get; init; } = 1;
 
-        public string Uuid { get; set; } = "";
+        public string Uuid { get; init; } = "";
 
-        public string UserId { get; set; } = "";
+        public string UserId { get; init; } = "";
 
-        public string? UserName { get; set; }
+        public string? UserName { get; init; }
 
-        public string? HeadImageUrl { get; set; }
+        public string? HeadImageUrl { get; init; }
 
-        public UserInfo UserInfo { get; set; } = new();
+        public UserInfo UserInfo { get; init; } = new();
     }
 }
