@@ -1,8 +1,6 @@
-﻿using Microsoft.UI.Xaml;
-
-namespace OnePulse.App.Gui.Windows
+﻿namespace OnePulse.App.Gui.Windows
 {
-    public sealed partial class MainWindow : Window
+    public sealed partial class MainWindow
     {
         public MainWindow()
         {

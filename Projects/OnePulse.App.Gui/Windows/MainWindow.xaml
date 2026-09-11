@@ -17,6 +17,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -48,7 +49,7 @@
                     </NavigationViewItem>
                 </NavigationView.MenuItems>
 
-                <Frame x:Name="contentFrame" />
+                <Frame x:Name="ContentFrame" />
             </NavigationView>
         </Grid>
     </Grid>

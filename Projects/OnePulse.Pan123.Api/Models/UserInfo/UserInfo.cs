@@ -19,7 +19,7 @@
 
         private DeviceInfo() { }
 
-        public static DeviceInfo NewDeviceInfo(string device)
+        public static DeviceInfo DeviceInfoFromString(string device)
         {
             string[] deviceParts = device.Split([':'], 2);
 

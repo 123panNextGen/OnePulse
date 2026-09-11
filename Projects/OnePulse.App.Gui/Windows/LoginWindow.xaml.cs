@@ -3,7 +3,7 @@ using OnePulse.App.Gui.Services;
 
 namespace OnePulse.App.Gui.Windows;
 
-public sealed partial class LoginWindow : Window
+public sealed partial class LoginWindow
 {
     public LoginWindow()
     {
@@ -29,9 +29,9 @@ public sealed partial class LoginWindow : Window
 
     private void AppTitleBar_BackRequested(Microsoft.UI.Xaml.Controls.TitleBar sender, object args)
     {
-        if (rootFrame.CanGoBack == true)
+        if (RootFrame.CanGoBack)
         {
-            rootFrame.GoBack();
+            RootFrame.GoBack();
         }
     }
 }

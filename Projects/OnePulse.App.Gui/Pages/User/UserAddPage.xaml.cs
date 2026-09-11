@@ -4,7 +4,7 @@ using OnePulse.App.Gui.ViewModels;
 
 namespace OnePulse.App.Gui.Pages.User
 {
-    public sealed partial class UserAddPage : Page
+    public sealed partial class UserAddPage
     {
         public UserAddPageViewModel ViewModel { get; } = new();
 

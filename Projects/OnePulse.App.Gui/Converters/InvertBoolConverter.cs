@@ -3,7 +3,7 @@ using System;
 
 namespace OnePulse.App.Gui.Converters
 {
-    public class InvertBoolConverter : IValueConverter
+    public partial class InvertBoolConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {

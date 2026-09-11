@@ -28,23 +28,20 @@ namespace OnePulse.App.Gui.ViewModels
                 NeedValidation = true;
         }
 
-        public UserInfo GetUserInfo()
+        private UserInfo GetUserInfo()
         {
             return new UserInfo()
             {
                 UserName = UserName,
                 Password = Password,
                 Uuid = Guid.NewGuid().ToString(),
-                DeviceInfo = DeviceInfo.NewDeviceInfo("Xiaomi:17"),
+                DeviceInfo = DeviceInfo.DeviceInfoFromString("Xiaomi:17"),
             };
         }
 
         public async Task<ApiReturn<UserInfo>> LoginAsync()
         {
-            var result = await UserInfoVM.LoginAsync(GetUserInfo(), true);
-
-            if (result == null)
-                return new ApiReturn<UserInfo>(ApiResult.Failed, "返回结果为 null");
+            UserInfo result = await UserInfoVM.LoginAsync(GetUserInfo(), true);
 
             return new ApiReturn<UserInfo>(ApiResult.Success) { Data = result };
         }

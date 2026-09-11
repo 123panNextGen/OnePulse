@@ -1,8 +1,8 @@
 ﻿namespace OnePulse.Pan123.Api.Models.Sessions
 {
-    public record class LoginDataResult(string? Token = null);
+    public abstract record LoginDataResult(string? Token = null);
 
-    public record class LoginResult(
+    public record LoginResult(
         int? Code = null,
         string? Message = null,
         LoginDataResult? Data = null

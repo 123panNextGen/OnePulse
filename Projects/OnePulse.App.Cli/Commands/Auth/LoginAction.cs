@@ -50,7 +50,7 @@ namespace OnePulse.App.Cli.Commands.Auth
             // 设备串格式为 "OS:类型"，未提供时兜底为 123pan 客户端常见取值
             device ??= "Xiaomi:17";
 
-            DeviceInfo deviceInfo = DeviceInfo.NewDeviceInfo(device);
+            DeviceInfo deviceInfo = DeviceInfo.DeviceInfoFromString(device);
 
             UserInfo userInfo = new UserInfo
             {

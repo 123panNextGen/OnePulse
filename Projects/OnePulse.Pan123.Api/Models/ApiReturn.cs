@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-namespace OnePulse.Pan123.Api.Models
+﻿namespace OnePulse.Pan123.Api.Models
 {
     public enum ApiResult
     {
@@ -14,10 +12,9 @@ namespace OnePulse.Pan123.Api.Models
 
     public class ApiReturn<T>
     {
-        public ApiResult Result;
+        public readonly ApiResult Result;
         public string Message { get; set; } = "";
 
-        [MaybeNull]
         public T? Data;
 
         public ApiReturn(ApiResult result)

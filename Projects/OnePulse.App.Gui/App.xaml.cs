@@ -3,7 +3,7 @@ using OnePulse.App.Gui.Windows;
 
 namespace OnePulse.App.Gui
 {
-    public partial class App : Application
+    public partial class App
     {
         private Window? _window;
 
@@ -12,7 +12,7 @@ namespace OnePulse.App.Gui
             InitializeComponent();
         }
 
-        protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
+        protected override void OnLaunched(LaunchActivatedEventArgs args)
         {
             _window = new LoginWindow();
             _window.Activate();

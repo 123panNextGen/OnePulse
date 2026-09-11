@@ -1,6 +1,7 @@
 <Solution>
   <Folder Name="/解决方案项/">
     <File Path=".editorconfig" />
+    <File Path=".gitignore" />
     <File Path="LICENSE.txt" />
     <File Path="README.md" />
   </Folder>

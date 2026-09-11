@@ -21,7 +21,7 @@ namespace OnePulse.Pan123.Api.Services
             // 登录
             public async Task<ApiReturn<string>> LoginByUserInfoAsync(UserInfo userInfo)
             {
-                ArgumentNullException.ThrowIfNull(userInfo, nameof(userInfo));
+                ArgumentNullException.ThrowIfNull(userInfo);
                 ArgumentNullException.ThrowIfNull(userInfo.UserName, nameof(userInfo.UserName));
                 ArgumentNullException.ThrowIfNull(userInfo.Password, nameof(userInfo.Password));
                 ArgumentNullException.ThrowIfNull(userInfo.DeviceInfo, nameof(userInfo.DeviceInfo));
@@ -30,7 +30,7 @@ namespace OnePulse.Pan123.Api.Services
                 try
                 {
                     // 请求
-                    using var response = await NetSession.sharedClient.PostAsJsonAsync(
+                    using HttpResponseMessage response = await sharedClient.PostAsJsonAsync(
                         "/b/api/user/sign_in",
                         new
                         {
@@ -51,12 +51,11 @@ namespace OnePulse.Pan123.Api.Services
                     }
 
                     // 转换
-                    var result = await response.Content.ReadFromJsonAsync<LoginResult>();
+                    LoginResult? result = await response.Content.ReadFromJsonAsync<LoginResult>();
 
                     // 判断
                     if (
-                        result == null
-                        || result.Code != 200
+                        result is not { Code: 200 }
                         || result.Data == null
                         || result.Data.Token is { Length: <= 0 }
                     )
@@ -96,6 +95,13 @@ namespace OnePulse.Pan123.Api.Services
                     return new ApiReturn<string>(ApiResult.Failed, $"未知错误: {ex.Message}");
                 }
             }
+        }
+
+        public NetSession(AuthService auth, UtilityService utils, UserInfo? userInfo)
+        {
+            Auth = auth;
+            Utils = utils;
+            UserInfo = userInfo;
         }
     }
 }

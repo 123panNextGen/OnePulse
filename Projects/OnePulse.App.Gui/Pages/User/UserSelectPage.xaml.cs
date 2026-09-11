@@ -7,11 +7,11 @@ using OnePulse.Pan123.Api.Models;
 
 namespace OnePulse.App.Gui.Pages.User
 {
-    public sealed partial class UserSelectPage : Page
+    public sealed partial class UserSelectPage
     {
-        internal ObservableCollection<StorageUser> Users = [];
+        public ObservableCollection<StorageUser> Users = [];
         internal StorageUser? SelectedUser;
-        internal LoginManager Manager { get; private set; } = LoginManager.Instance;
+        private LoginManager Manager { get; } = LoginManager.Instance;
 
         private async void UpdateUserList()
         {

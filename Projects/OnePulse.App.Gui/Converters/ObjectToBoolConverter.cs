@@ -5,7 +5,7 @@ namespace OnePulse.App.Gui.Converters
 {
     public partial class ObjectToBoolConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, string language)
+        public object Convert(object? value, Type targetType, object parameter, string language)
         {
             return value != null;   // 非 null 返回 true，null 返回 false
         }

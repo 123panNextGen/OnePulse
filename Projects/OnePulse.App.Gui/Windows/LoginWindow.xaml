@@ -25,7 +25,7 @@
             x:Name="AppTitleBar"
             Title="OnePulse"
             BackRequested="AppTitleBar_BackRequested"
-            IsBackButtonEnabled="{x:Bind rootFrame.CanGoBack, Mode=OneWay}"
+            IsBackButtonEnabled="{x:Bind RootFrame.CanGoBack, Mode=OneWay}"
             IsBackButtonVisible="True"
             Subtitle="Login">
             <TitleBar.IconSource>
@@ -34,7 +34,7 @@
         </TitleBar>
 
         <Frame
-            x:Name="rootFrame"
+            x:Name="RootFrame"
             Grid.Row="1"
             SourcePageType="pages:UserSelectPage" />
 

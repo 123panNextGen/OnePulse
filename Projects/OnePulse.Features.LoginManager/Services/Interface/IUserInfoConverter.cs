@@ -3,7 +3,7 @@ using OnePulse.Pan123.Api.Models.UserInfo;
 
 namespace OnePulse.Features.LoginManager.Services.Interface
 {
-    public partial interface IUserInfoConverter
+    public interface IUserInfoConverter
     {
         // UserInfo → StorageUser 转换契约
         // 为什么：写操作（Add）统一接收已转换的 StorageUser，

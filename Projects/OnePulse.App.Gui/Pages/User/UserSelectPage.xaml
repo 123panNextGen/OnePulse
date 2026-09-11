@@ -37,7 +37,8 @@
                         VerticalAlignment="Center"
                         Stroke="Gray" />
                     <TextBlock
-                        Grid.Row="0" Grid.Column="1"
+                        Grid.Row="0"
+                        Grid.Column="1"
                         Margin="12,6,0,0"
                         x:Phase="1"
                         Style="{ThemeResource BaseTextBlockStyle}"

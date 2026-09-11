@@ -8,6 +8,7 @@
     <VersionPrefix>0.1.0</VersionPrefix>
     <Authors>AImixAE Nya Mocha</Authors>
     <Company>123Pan Next Gen</Company>
+    <AssemblyTitle>OnePulse Cli</AssemblyTitle>
   </PropertyGroup>
 
   <ItemGroup>

@@ -5,7 +5,7 @@ namespace OnePulse.Pan123.Api.Services
 {
     public partial class NetSession
     {
-        internal class UtilityService
+        public class UtilityService
         {
             private readonly NetSession _session;
 
