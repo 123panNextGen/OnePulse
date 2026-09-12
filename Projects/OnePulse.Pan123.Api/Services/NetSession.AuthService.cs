@@ -43,7 +43,7 @@ namespace OnePulse.Pan123.Api.Services
                     using StringContent content = new(jsonBody, Encoding.UTF8, MediaTypeHeaderValue.Parse("application/json"));
                     using HttpResponseMessage response = await SharedClient.PostAsync("/b/api/user/sign_in", content);
 
-                    // 判断
+                    // 判断登录状态
                     if (!response.IsSuccessStatusCode)
                     {
                         string errorContent = await response.Content.ReadAsStringAsync();
@@ -57,7 +57,7 @@ namespace OnePulse.Pan123.Api.Services
                     string responseJson = await response.Content.ReadAsStringAsync();
                     LoginResult? result = JsonConvert.DeserializeObject<LoginResult>(responseJson, JsonSettings);
 
-                    // 判断
+                    // 判断登录结果
                     if (
                         result is not { Code: 200 }
                         || result.Data == null
@@ -68,7 +68,7 @@ namespace OnePulse.Pan123.Api.Services
                             result?.Message ?? "登录失败"
                         );
 
-                    // 应用
+                    // 应用登录状态
                     _session.UserInfo = userInfo;
                     _session.UserInfo.Authorization = result.Data.Token;
 

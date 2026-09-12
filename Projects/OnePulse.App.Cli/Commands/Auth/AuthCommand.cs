@@ -11,6 +11,11 @@ namespace OnePulse.App.Cli.Commands.Auth
         public AuthCommand(Option<string> tokenOption)
         {
             Command.Subcommands.Add(new LoginCommand(tokenOption).Command);
+
+            if (OperatingSystem.IsWindows())
+            {
+                Command.Subcommands.Add(new ManagerCommand(tokenOption).Command);
+            }
         }
     }
 }

@@ -15,11 +15,9 @@ namespace OnePulse.App.Cli.Commands.Auth
         {
             ApiReturn<string> result = await Manager.Auth.LoginByUserInfoAsync(userInfo);
 
-            if (result is { Result: ApiResult.Success, Data: not null })
-                return result.Data;
-
-            // 抛异常让上层捕获，携带服务端返回的错误消息便于排查
-            throw new InvalidOperationException($"Failed to login. Msg: {result.Message}");
+            return result is { Result: ApiResult.Success, Data: not null } ? result.Data : throw
+                // 抛异常让上层捕获，携带服务端返回的错误消息便于排查
+                new InvalidOperationException($"Failed to login. Msg: {result.Message}");
         }
 
         private async Task<string> LoginAsync(UserInfo userInfo, bool replaceToken = false)
@@ -48,11 +46,11 @@ namespace OnePulse.App.Cli.Commands.Auth
                 return token;
 
             // 设备串格式为 "OS:类型"，未提供时兜底为 123pan 客户端常见取值
-            device ??= "Xiaomi:17";
+            device ??= Manager.Utils.GetRandomDeviceInfo().ToString();
 
             DeviceInfo deviceInfo = DeviceInfo.DeviceInfoFromString(device);
 
-            UserInfo userInfo = new UserInfo
+            UserInfo userInfo = new()
             {
                 UserName = userName,
                 Password = password,

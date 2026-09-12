@@ -10,7 +10,7 @@ namespace OnePulse.Pan123.Api.Services
 
         // 子服务
         public AuthService Auth { get; }
-        private UtilityService Utils { get; }
+        public UtilityService Utils { get; }
 
         // Http 客户端
         private static readonly HttpClient SharedClient = new()
@@ -20,7 +20,7 @@ namespace OnePulse.Pan123.Api.Services
         internal static readonly HttpClient FreeClient = new();
 
         // 用户信息
-        private UserInfo? UserInfo { get; set; }
+        public UserInfo? UserInfo { get; private set; }
 
         private NetSession()
         {

@@ -23,9 +23,11 @@ namespace OnePulse.Pan123.Api.Services
             internal UtilityService(NetSession session)
             {
                 _session = session;
+
+                LoadDataFiles();
             }
 
-            public ApiReturn<string> LoadDataFiles(CancellationToken cancellationToken = default)
+            private ApiReturn<string> LoadDataFiles(CancellationToken cancellationToken = default)
             {
                 // 读取 DataInfo.json
                 string dataInfoPath = Constants.Data.DataInfoPath;
@@ -105,7 +107,7 @@ namespace OnePulse.Pan123.Api.Services
             /// <summary>
             /// 随机获取一个设备类型 (DeviceData.type)
             /// </summary>
-            public string? GetRandomDeviceType()
+            private string? GetRandomDeviceType()
             {
                 return DeviceData?.Types is not { Count: > 0 } list
                     ? null
@@ -115,7 +117,7 @@ namespace OnePulse.Pan123.Api.Services
             /// <summary>
             /// 随机获取一个操作系统版本 (DeviceData.os)
             /// </summary>
-            public string? GetRandomOs()
+            private string? GetRandomOs()
             {
                 return DeviceData?.Os is not { Count: > 0 } list
                     ? null

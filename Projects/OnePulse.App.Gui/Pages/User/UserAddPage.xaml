@@ -72,6 +72,12 @@
                             IsChecked="{x:Bind ViewModel.NeedValidation, Mode=TwoWay}"
                             IsEnabled="{x:Bind ViewModel.NeedLoginAndEnter, Mode=OneWay, Converter={StaticResource InvertBoolConverter}}" />
                         <CheckBox
+                            x:Name="GetOpenInfoCheckBox"
+                            Content="获取用户信息"
+                            IsChecked="{x:Bind ViewModel.NeedGetOpenInfo, Mode=TwoWay}"
+                            IsEnabled="{x:Bind ViewModel.NeedLoginAndEnter, Mode=OneWay, Converter={StaticResource InvertBoolConverter}}"
+                            />
+                        <CheckBox
                             x:Name="LoginAndEnterCheckBox"
                             Content="登录并进入"
                             IsChecked="{x:Bind ViewModel.NeedLoginAndEnter, Mode=TwoWay}" />
