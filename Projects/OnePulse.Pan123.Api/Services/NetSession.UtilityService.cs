@@ -1,11 +1,11 @@
-﻿using Newtonsoft.Json;
+﻿using System.Net.Http.Headers;
+using System.Security.Cryptography;
+using System.Text;
+using Newtonsoft.Json;
 using OnePulse.Pan123.Api.Data;
-using System.Net.Http.Headers;
 using OnePulse.Pan123.Api.Models;
 using OnePulse.Pan123.Api.Models.Data;
 using OnePulse.Pan123.Api.Models.UserInfo;
-using System.Security.Cryptography;
-using System.Text;
 
 namespace OnePulse.Pan123.Api.Services
 {
@@ -24,7 +24,7 @@ namespace OnePulse.Pan123.Api.Services
             {
                 _session = session;
             }
-            
+
             public ApiReturn<string> LoadDataFiles(CancellationToken cancellationToken = default)
             {
                 // 读取 DataInfo.json
@@ -39,7 +39,10 @@ namespace OnePulse.Pan123.Api.Services
                 }
                 catch (JsonException ex)
                 {
-                    return new ApiReturn<string>(ApiResult.Failed, $"DataInfo.json 解析失败: {ex.Message}");
+                    return new ApiReturn<string>(
+                        ApiResult.Failed,
+                        $"DataInfo.json 解析失败: {ex.Message}"
+                    );
                 }
                 if (info == null)
                     return new ApiReturn<string>(ApiResult.Failed, "DataInfo.json 内容为空");
@@ -51,7 +54,10 @@ namespace OnePulse.Pan123.Api.Services
                         return new ApiReturn<string>(ApiResult.Failed, "操作已取消");
                     string fullPath = Path.Combine(AppContext.BaseDirectory, content.Path);
                     if (!File.Exists(fullPath))
-                        return new ApiReturn<string>(ApiResult.Failed, $"找不到数据文件: {fullPath}");
+                        return new ApiReturn<string>(
+                            ApiResult.Failed,
+                            $"找不到数据文件: {fullPath}"
+                        );
                     // 2a. SHA256 校验
                     string actualHash = ComputeSha256(fullPath);
                     if (!actualHash.Equals(content.Sha256, StringComparison.OrdinalIgnoreCase))
@@ -69,11 +75,17 @@ namespace OnePulse.Pan123.Api.Services
                         case "DeviceData":
                             try
                             {
-                                DeviceData = JsonConvert.DeserializeObject<DeviceData>(fileJson, JsonSettings);
+                                DeviceData = JsonConvert.DeserializeObject<DeviceData>(
+                                    fileJson,
+                                    JsonSettings
+                                );
                             }
                             catch (JsonException ex)
                             {
-                                return new ApiReturn<string>(ApiResult.Failed, $"DeviceData.json 解析失败: {ex.Message}");
+                                return new ApiReturn<string>(
+                                    ApiResult.Failed,
+                                    $"DeviceData.json 解析失败: {ex.Message}"
+                                );
                             }
                             break;
                     }
@@ -81,7 +93,7 @@ namespace OnePulse.Pan123.Api.Services
                 IsDataVerified = true;
                 return new ApiReturn<string>(ApiResult.Success, "数据文件加载完成");
             }
-            
+
             private static string ComputeSha256(string filePath)
             {
                 using FileStream stream = File.OpenRead(filePath);
@@ -89,20 +101,33 @@ namespace OnePulse.Pan123.Api.Services
                 byte[] hash = sha256.ComputeHash(stream);
                 return Convert.ToHexString(hash);
             }
-            
+
             /// <summary>
             /// 随机获取一个设备类型 (DeviceData.type)
             /// </summary>
             public string? GetRandomDeviceType()
             {
-                return DeviceData?.Types is not { Count: > 0 } list ? null : list[_random.Next(list.Count)];
+                return DeviceData?.Types is not { Count: > 0 } list
+                    ? null
+                    : list[_random.Next(list.Count)];
             }
+
             /// <summary>
             /// 随机获取一个操作系统版本 (DeviceData.os)
             /// </summary>
             public string? GetRandomOs()
             {
-                return DeviceData?.Os is not { Count: > 0 } list ? null : list[_random.Next(list.Count)];
+                return DeviceData?.Os is not { Count: > 0 } list
+                    ? null
+                    : list[_random.Next(list.Count)];
+            }
+
+            public DeviceInfo GetRandomDeviceInfo()
+            {
+                return new DeviceInfo(
+                    type: GetRandomDeviceType() ?? "Xiaomi17",
+                    os: GetRandomOs() ?? "Android"
+                );
             }
 
             internal ApiReturn<string> UpdateHeaders()
