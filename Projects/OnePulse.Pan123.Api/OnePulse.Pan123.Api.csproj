@@ -8,6 +8,13 @@
 
   <ItemGroup>
     <None Remove="Data\device.json" />
+    <None Remove="Data\DeviceData.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Data\DeviceData.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
     
 </Project>

@@ -4,15 +4,10 @@ namespace OnePulse.Features.LoginManager.Services.SecureCrypto
 {
     // LiteDB 数据库密码密钥库
     // 密钥由 DPAPI 加密后落盘，与数据库同目录；随用户拷贝数据库而不带密钥即无法解密
-    public class SecureKeyStore : ISecureKeyStore
+    public class SecureKeyStore(string appDataPath) : ISecureKeyStore
     {
-        private readonly string _keyFilePath;
-        string? _key;
-
-        public SecureKeyStore(string appDataPath)
-        {
-            _keyFilePath = appDataPath + @"\Database\key.dat";
-        }
+        private readonly string _keyFilePath = appDataPath + @"\Database\key.dat";
+        private string? _key;
 
         public string Key
         {

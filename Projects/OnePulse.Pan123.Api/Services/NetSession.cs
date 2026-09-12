@@ -4,32 +4,29 @@ namespace OnePulse.Pan123.Api.Services
 {
     public partial class NetSession
     {
-        private static readonly Lazy<NetSession> lazy = new(() => new());
+        private static readonly Lazy<NetSession> Lazy = new(() => new NetSession());
 
-        public static NetSession Instance
-        {
-            get { return lazy.Value; }
-        }
+        public static NetSession Instance => Lazy.Value;
 
         // 子服务
         public AuthService Auth { get; }
-        internal UtilityService Utils { get; }
+        private UtilityService Utils { get; }
 
         // Http 客户端
-        internal static HttpClient sharedClient = new()
+        private static readonly HttpClient SharedClient = new()
         {
             BaseAddress = new Uri("https://www.123pan.cn"),
         };
-        internal static HttpClient freeClient = new();
+        internal static readonly HttpClient FreeClient = new();
 
         // 用户信息
-        UserInfo? UserInfo { get; set; }
+        private UserInfo? UserInfo { get; set; }
 
         private NetSession()
         {
             // 注册服务
-            Auth = new(this);
-            Utils = new(this);
+            Auth = new AuthService(this);
+            Utils = new UtilityService(this);
         }
     }
 }

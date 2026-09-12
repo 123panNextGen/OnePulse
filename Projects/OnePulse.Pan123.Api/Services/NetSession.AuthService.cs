@@ -1,9 +1,9 @@
-﻿using OnePulse.Pan123.Api.Models;
+﻿using System.Net.Http.Json;
+using System.Text.Json;
+using OnePulse.Pan123.Api.Models;
 using OnePulse.Pan123.Api.Models.Sessions;
 using OnePulse.Pan123.Api.Models.UserInfo;
 using OnePulse.Pan123.Api.Services.Interface;
-using System.Net.Http.Json;
-using System.Text.Json;
 
 namespace OnePulse.Pan123.Api.Services
 {
@@ -30,7 +30,7 @@ namespace OnePulse.Pan123.Api.Services
                 try
                 {
                     // 请求
-                    using HttpResponseMessage response = await sharedClient.PostAsJsonAsync(
+                    using HttpResponseMessage response = await SharedClient.PostAsJsonAsync(
                         "/b/api/user/sign_in",
                         new
                         {
@@ -68,7 +68,10 @@ namespace OnePulse.Pan123.Api.Services
                     _session.UserInfo = userInfo;
                     _session.UserInfo.Authorization = result.Data.Token;
 
-                    _session.Utils.UpdateHeaders();
+                    ApiReturn<string> status = _session.Utils.UpdateHeaders();
+
+                    if (status.Result != ApiResult.Success)
+                        return status;
 
                     return new ApiReturn<string>(ApiResult.Success, result.Message ?? "登录成功")
                     {

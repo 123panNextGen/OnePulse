@@ -1,6 +1,4 @@
-﻿using System.IO;
-
-namespace OnePulse.Pan123.Api.Data
+﻿namespace OnePulse.Pan123.Api.Data
 {
     public static class Constants
     {
@@ -9,9 +7,9 @@ namespace OnePulse.Pan123.Api.Data
             public const int LatestVersion = 1;
         }
 
-        public static class UserInfo
+        public static class Data
         {
-            public static string DeviceDataPath = Path.Combine("Data", "DeviceData.json");
+            public static readonly string DataInfoPath = Path.Combine("Data", "DataInfo.json");
         }
     }
 }

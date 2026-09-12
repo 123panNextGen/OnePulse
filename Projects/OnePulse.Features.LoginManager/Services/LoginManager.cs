@@ -7,33 +7,31 @@ namespace OnePulse.Features.LoginManager.Services
 {
     public partial class LoginManager
     {
-        private static readonly Lazy<LoginManager> lazy = new(() => new());
+        private static readonly Lazy<LoginManager> Lazy = new(() => new LoginManager());
 
-        public static LoginManager Instance
-        {
-            get { return lazy.Value; }
-        }
+        public static LoginManager Instance => Lazy.Value;
 
         // 子服务
-        internal IUtilityService Utils { get; }
+        private UtilityService Utils { get; }
         public IAddService Add { get; }
         public IGetService Get { get; }
         public IDeleteService Delete { get; }
-        public ISecureKeyStore KeyStore { get; }
+        private ISecureKeyStore KeyStore { get; }
         public IUserInfoConverter Converter { get; }
 
-        public string AppDataPath =
+        private readonly string _appDataPath =
             Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\OnePulse";
-        internal LiteDatabase? Database { get; set; }
-        internal ILiteCollection<StorageUser>? UserCollections { get; set; }
+
+        private LiteDatabase? Database { get; set; }
+        private ILiteCollection<StorageUser>? UserCollections { get; set; }
 
         public LoginManager()
         {
-            Directory.CreateDirectory(AppDataPath);
-            Directory.CreateDirectory(AppDataPath + @"\Database");
+            Directory.CreateDirectory(_appDataPath);
+            Directory.CreateDirectory(_appDataPath + @"\Database");
 
             // 注册服务
-            KeyStore = new SecureKeyStore(AppDataPath);
+            KeyStore = new SecureKeyStore(_appDataPath);
             Converter = new UserInfoConverter();
             Utils = new UtilityService(this);
             Add = new AddService(this);

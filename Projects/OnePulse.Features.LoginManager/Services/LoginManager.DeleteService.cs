@@ -20,7 +20,7 @@ namespace OnePulse.Features.LoginManager.Services
 
                 // 以 StorageUser.Uuid（转换时生成的 Guid 字符串）匹配删除，
                 // 与 UserInfo.Uuid（设备令牌）无关；遗留旧记录无 Uuid 将匹配不到
-                var deleted = _session.UserCollections.DeleteMany(s => s.Uuid == uuid);
+                int deleted = _session.UserCollections.DeleteMany(s => s.Uuid == uuid);
 
                 return deleted > 0
                     ? new ApiReturn<string>(ApiResult.Success)

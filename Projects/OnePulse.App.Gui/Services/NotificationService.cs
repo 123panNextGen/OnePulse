@@ -23,7 +23,7 @@ namespace OnePulse.App.Gui.Services
         /// </summary>
         private static ScrollViewer CreateMessageContent(string message, double bottomMargin = 0)
         {
-            var textBlock = new TextBlock
+            TextBlock textBlock = new()
             {
                 Text = message,
                 TextWrapping = TextWrapping.Wrap,
@@ -31,7 +31,7 @@ namespace OnePulse.App.Gui.Services
                 Margin = new Thickness(0, 0, 0, bottomMargin)
             };
 
-            var scrollViewer = new ScrollViewer
+            ScrollViewer scrollViewer = new()
             {
                 Content = textBlock,
                 MaxHeight = MaxNotificationHeight,          // 固定最大值，超长自动滚动
@@ -54,9 +54,9 @@ namespace OnePulse.App.Gui.Services
             if (_notificationQueue == null)
                 return;
 
-            var content = CreateMessageContent(message, 12);
+            ScrollViewer content = CreateMessageContent(message, 12);
 
-            var notification = new Notification
+            Notification notification = new()
             {
                 Title = title,
                 Severity = severity,
@@ -66,7 +66,7 @@ namespace OnePulse.App.Gui.Services
 
             if (showCopyButton)
             {
-                var copyButton = new Button
+                Button copyButton = new()
                 {
                     Content = new FontIcon { Glyph = "\uE8C8", FontSize = 16 },
                     Margin = new Thickness(0, 0, 4, 0),
@@ -75,7 +75,7 @@ namespace OnePulse.App.Gui.Services
                 ToolTipService.SetToolTip(copyButton, "复制内容");
                 copyButton.Click += (s, e) =>
                 {
-                    var dataPackage = new DataPackage();
+                    DataPackage dataPackage = new();
                     dataPackage.SetText(message);
                     Clipboard.SetContent(dataPackage);
                 };
@@ -96,9 +96,9 @@ namespace OnePulse.App.Gui.Services
             if (_notificationQueue == null)
                 return;
 
-            var content = CreateMessageContent(message, 8); // 有复制按钮，底部留 8px
+            ScrollViewer content = CreateMessageContent(message, 8); // 有复制按钮，底部留 8px
 
-            var notification = new Notification
+            Notification notification = new()
             {
                 Title = title,
                 Severity = severity,
@@ -106,7 +106,7 @@ namespace OnePulse.App.Gui.Services
                 Content = content
             };
 
-            var copyButton = new Button
+            Button copyButton = new()
             {
                 Content = new FontIcon { Glyph = "\uE8C8", FontSize = 16 },
                 Margin = new Thickness(0, 0, 4, 0),
@@ -115,7 +115,7 @@ namespace OnePulse.App.Gui.Services
             ToolTipService.SetToolTip(copyButton, "复制内容");
             copyButton.Click += (s, e) =>
             {
-                var dataPackage = new DataPackage();
+                DataPackage dataPackage = new();
                 dataPackage.SetText(contentToCopy);
                 Clipboard.SetContent(dataPackage);
             };

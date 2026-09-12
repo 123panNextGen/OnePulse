@@ -38,24 +38,24 @@ namespace OnePulse.Features.LoginManager.Services.SecureCrypto
             };
         }
 
-        static string? Secure(string? value)
+        private static string? Secure(string? value)
         {
             return string.IsNullOrEmpty(value) ? value : SecureCryptoService.Protect(value);
         }
 
-        static string? Unsecure(string? value)
+        private static string? Unsecure(string? value)
         {
             return string.IsNullOrEmpty(value) ? value : SecureCryptoService.Unprotect(value);
         }
 
-        static string? SecureInfo(OpenUserInfo? info)
+        private static string? SecureInfo(OpenUserInfo? info)
         {
             return info == null
                 ? null
                 : SecureCryptoService.Protect(JsonSerializer.Serialize(info));
         }
 
-        static OpenUserInfo? UnsecureInfo(string? cipher)
+        private static OpenUserInfo? UnsecureInfo(string? cipher)
         {
             return string.IsNullOrEmpty(cipher)
                 ? null

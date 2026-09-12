@@ -1,0 +1,16 @@
+{
+    "metainfo": {
+        "version": 1
+    },
+
+    "dataContent": [
+        {
+            "id": 1,
+            "name": "DeviceData",
+            "type": "Json",
+            "version": 1,
+            "path": "Data/DeviceData.json",
+            "sha256": "909C67E1F0B8A44F074734A2F7C62991A33C84AC7CD426C61F6BA6146334CCC5"
+        }
+    ]
+}

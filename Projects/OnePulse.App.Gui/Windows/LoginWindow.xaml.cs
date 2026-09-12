@@ -1,37 +1,40 @@
 ﻿using Microsoft.UI.Xaml;
 using OnePulse.App.Gui.Services;
+using WinUIEx;
 
-namespace OnePulse.App.Gui.Windows;
-
-public sealed partial class LoginWindow
+namespace OnePulse.App.Gui.Windows
 {
-    public LoginWindow()
+    public sealed partial class LoginWindow
     {
-        ExtendsContentIntoTitleBar = true;
-        SetTitleBar(AppTitleBar);
-
-        InitializeComponent();
-        SetWindowMinSize();
-
-        Activated += (s, e) =>
+        public LoginWindow()
         {
-            NotificationService.Initialize(NotificationQueue);
-        };
-    }
+            // TitleBar
+            ExtendsContentIntoTitleBar = true;
+            SetTitleBar(AppTitleBar);
 
-    private void SetWindowMinSize()
-    {
-        var manager = WinUIEx.WindowManager.Get(this);
-        manager.PersistenceId = "LoginWindow";
-        manager.MinWidth = 800;
-        manager.MinHeight = 600;
-    }
+            InitializeComponent();
+            SetWindowMinSize();
 
-    private void AppTitleBar_BackRequested(Microsoft.UI.Xaml.Controls.TitleBar sender, object args)
-    {
-        if (RootFrame.CanGoBack)
+            Activated += (s, e) =>
+            {
+                NotificationService.Initialize(NotificationQueue);
+            };
+        }
+
+        private void SetWindowMinSize()
         {
-            RootFrame.GoBack();
+            WindowManager manager = WindowManager.Get(this);
+            manager.PersistenceId = "LoginWindow";
+            manager.MinWidth = 800;
+            manager.MinHeight = 600;
+        }
+
+        private void AppTitleBar_BackRequested(Microsoft.UI.Xaml.Controls.TitleBar sender, object args)
+        {
+            if (RootFrame.CanGoBack)
+            {
+                RootFrame.GoBack();
+            }
         }
     }
 }

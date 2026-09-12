@@ -1,5 +1,6 @@
 ﻿using OnePulse.Pan123.Api.Models;
 using OnePulse.Pan123.Api.Models.UserInfo;
+using System.Net.Http.Headers;
 
 namespace OnePulse.Pan123.Api.Services
 {
@@ -19,22 +20,22 @@ namespace OnePulse.Pan123.Api.Services
                 if (_session.UserInfo == null)
                     return new ApiReturn<string>(ApiResult.NotEnoughQualifications);
 
-                var headers = BuildHeadersByUserInfo(_session.UserInfo);
+                Dictionary<string, string> headers = BuildHeadersByUserInfo(_session.UserInfo);
 
-                var defaultHeaders = NetSession.sharedClient.DefaultRequestHeaders;
+                HttpRequestHeaders defaultHeaders = SharedClient.DefaultRequestHeaders;
                 defaultHeaders.Clear();
-                foreach (var kv in headers)
+                foreach (KeyValuePair<string, string> kv in headers)
                     defaultHeaders.TryAddWithoutValidation(kv.Key, kv.Value);
 
                 return new ApiReturn<string>(ApiResult.Success);
             }
 
-            internal static Dictionary<string, string> BuildHeadersByUserInfo(UserInfo userInfo)
+            private static Dictionary<string, string> BuildHeadersByUserInfo(UserInfo userInfo)
             {
                 ArgumentNullException.ThrowIfNull(userInfo.DeviceInfo);
                 ArgumentNullException.ThrowIfNull(userInfo.Uuid);
 
-                var headers = new Dictionary<string, string>
+                Dictionary<string, string> headers = new()
                 {
                     ["user-agent"] = $"123pan/v2.4.0({userInfo.DeviceInfo.OS};Xiaomi)",
                     ["accept-encoding"] = "gzip",

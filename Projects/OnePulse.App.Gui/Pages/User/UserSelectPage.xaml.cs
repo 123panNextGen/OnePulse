@@ -1,6 +1,7 @@
 using System;
 using System.Collections.ObjectModel;
 using Microsoft.UI.Xaml.Controls;
+using OnePulse.App.Gui.Services;
 using OnePulse.Features.LoginManager.Models;
 using OnePulse.Features.LoginManager.Services;
 using OnePulse.Pan123.Api.Models;
@@ -71,6 +72,12 @@ namespace OnePulse.App.Gui.Pages.User
             catch (Exception err)
             {
                 // TODO: 处理异常
+                NotificationService.ShowWithCopy(
+                    "出现异常",
+                    err.Message,
+                    err.Message,
+                    InfoBarSeverity.Error
+                );
             }
         }
 

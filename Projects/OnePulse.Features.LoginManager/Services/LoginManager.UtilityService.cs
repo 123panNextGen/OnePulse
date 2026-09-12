@@ -19,8 +19,8 @@ namespace OnePulse.Features.LoginManager.Services
             // 故初始化推迟到 LoginManager 全部子服务注册完成后执行
             public void Initialize()
             {
-                var databasePath = _session.AppDataPath + @"\Database\UserInfo.db";
-                var connectionString = $"Filename={databasePath};Password={_session.KeyStore.Key}";
+                string databasePath = _session._appDataPath + @"\Database\UserInfo.db";
+                string connectionString = $"Filename={databasePath};Password={_session.KeyStore.Key}";
 
                 _session.Database = new LiteDatabase(connectionString);
                 _session.UserCollections = _session.Database.GetCollection<StorageUser>();
