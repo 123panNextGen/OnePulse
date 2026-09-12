@@ -1,5 +1,6 @@
-﻿using System.Net.Http.Json;
-using System.Text.Json;
+﻿using System.Net.Http.Headers;
+using System.Text;
+using Newtonsoft.Json;
 using OnePulse.Pan123.Api.Models;
 using OnePulse.Pan123.Api.Models.Sessions;
 using OnePulse.Pan123.Api.Models.UserInfo;
@@ -29,16 +30,18 @@ namespace OnePulse.Pan123.Api.Services
 
                 try
                 {
-                    // 请求
-                    using HttpResponseMessage response = await SharedClient.PostAsJsonAsync(
-                        "/b/api/user/sign_in",
+                    // 请求（使用 Newtonsoft.Json 序列化）
+                    string jsonBody = JsonConvert.SerializeObject(
                         new
                         {
                             type = 1,
                             passport = userInfo.UserName,
                             password = userInfo.Password,
-                        }
+                        },
+                        JsonSettings
                     );
+                    using StringContent content = new(jsonBody, Encoding.UTF8, MediaTypeHeaderValue.Parse("application/json"));
+                    using HttpResponseMessage response = await SharedClient.PostAsync("/b/api/user/sign_in", content);
 
                     // 判断
                     if (!response.IsSuccessStatusCode)
@@ -50,8 +53,9 @@ namespace OnePulse.Pan123.Api.Services
                         );
                     }
 
-                    // 转换
-                    LoginResult? result = await response.Content.ReadFromJsonAsync<LoginResult>();
+                    // 转换（使用 Newtonsoft.Json 反序列化）
+                    string responseJson = await response.Content.ReadAsStringAsync();
+                    LoginResult? result = JsonConvert.DeserializeObject<LoginResult>(responseJson, JsonSettings);
 
                     // 判断
                     if (

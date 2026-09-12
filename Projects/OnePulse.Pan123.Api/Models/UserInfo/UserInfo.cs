@@ -8,12 +8,12 @@
 
     public class DeviceInfo
     {
-        public string OS { get; set; } = string.Empty;
-        public string Type { get; set; } = string.Empty;
+        public string Os { get; private set; } = string.Empty;
+        public string Type { get; private set; } = string.Empty;
 
         public DeviceInfo(string os, string type)
         {
-            OS = os;
+            Os = os;
             Type = type;
         }
 
@@ -25,7 +25,7 @@
 
             return new DeviceInfo
             {
-                OS = deviceParts.Length > 0 ? deviceParts[0] : string.Empty,
+                Os = deviceParts.Length > 0 ? deviceParts[0] : string.Empty,
                 Type = deviceParts.Length > 1 ? deviceParts[1] : string.Empty,
             };
         }
